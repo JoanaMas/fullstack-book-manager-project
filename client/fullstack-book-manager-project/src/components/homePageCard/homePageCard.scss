@@ -1,0 +1,30 @@
+@import '../../style/variables';
+
+.card {
+    flex: 1;
+    height: inherit;
+    background-color: $light-brown;
+    border-radius: 10%;
+    display: flex;
+    flex-direction: column;
+    gap: $g-5;
+    padding-left: $p-4;
+    border: 10px solid $primary;
+
+    h5 {
+        margin-top: $m-5;
+        color: $primary;
+        letter-spacing: 3px;
+    }
+
+    h1 {
+        width: 60%;
+        font-size: $font-7;
+        color: $white;
+    }
+    
+    p {
+        color: $white;
+    }
+
+}

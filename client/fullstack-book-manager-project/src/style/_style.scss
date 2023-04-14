@@ -1,0 +1,11 @@
+@import './variables';
+
+body {
+    font-family: 'Libre Baskerville', serif;
+    font-weight: 500;
+}
+
+.container {
+    padding: $p-12 $p-4;
+}
+

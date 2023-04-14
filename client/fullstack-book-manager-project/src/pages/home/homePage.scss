@@ -1,0 +1,171 @@
+@import '../../style/variables';
+
+.homePage {
+    width: 100%;
+    height: 100vh;
+    padding: 0;
+
+}
+
+
+//  Header section
+
+.header {
+    width: 100%;
+    height: 400px;
+    background-color: $primary;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    position: relative;
+
+    .title {
+        flex: 1;
+        padding-left: $p-4;
+        padding-bottom: $p-8;
+
+        h1 {
+            color: $dark-green;
+            font-size: $font-6;
+
+            span {
+                display: block;
+                color: $dark-ligther-brown;
+                font-size: 40pt;
+                padding-top: $p-2;
+                
+            }
+        }
+
+        button {
+            width: 150px;
+            height: 50px;
+            border: none;
+            background-color: $orange;
+            border-radius: 20px;
+            color: $white;
+            font-size: $font-2;
+            position: absolute;
+            bottom: 60px;
+            letter-spacing: 2px;
+        }
+    }
+
+    .image {
+        flex: 2;
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+        background-image: url("../../assets/book-illustration-2.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        border-radius: 0 50px 50px 0;
+    }
+}
+
+// Contnent section
+
+.content {
+    width: 100%;
+    height: 400px;
+    display: flex;
+    margin-top: $m-4;
+    gap: $g-2;
+
+
+    .featuresCardColor {
+        background-color: $orange;
+    }
+
+    .socialCardColor {
+        background-color: $dark-ligther-brown;
+    }
+
+}
+
+.exploreIcon {
+    height: inherit;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    padding: $p-2;
+}
+
+
+
+
+// Progress Bar
+.progress {
+    position: relative;
+    top: 60px;
+    left: 20px;
+    height: 10px;
+    width: 70%;
+    border: 20px solid #f4a261;
+    border-radius: 15px;
+}
+.progress .color{
+    position: absolute;
+    background-color: #ffffff;
+    width: 0px;
+    height: 10px;
+    border-radius: 15px;
+    animation: progres 4s infinite linear;    
+}
+
+@keyframes progres{
+    0%{
+      width: 0%;
+    }
+    25%{
+        width: 50%;
+    }
+    50%{
+        width: 75%;
+    }
+    75%{
+        width: 85%;
+    }
+    100%{
+        width: 100%;
+    }
+};
+
+
+.features {
+    background-color: $primary;
+    width: 90%;
+    border-radius: 20px;
+
+    h4 {
+        display: block;
+        padding: 5px;
+        padding-left: $p-2;
+        color: $orange;
+    }
+}
+
+.none { 
+    display: none;
+}
+
+.socialIcons {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding-top: $p-1;
+    color: $white;
+    background-color: $orange;
+    margin-right: 20pt;
+    border-radius: 20px;
+
+    a {
+        text-decoration: none;
+        color: $white;
+    }
+
+    .icon * {
+        font-size: 40pt;
+    }
+}

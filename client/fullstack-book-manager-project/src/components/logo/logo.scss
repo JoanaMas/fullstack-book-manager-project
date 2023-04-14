@@ -1,0 +1,14 @@
+@import '../../style/variables';
+
+.logo {
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: $font-5;
+    img {
+        width: 90px;
+        height: 70px;
+    }
+   
+}
