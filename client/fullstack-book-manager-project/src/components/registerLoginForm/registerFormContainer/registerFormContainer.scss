@@ -1,0 +1,15 @@
+@import '../../../style/variables';
+
+.registerPage {
+    background-color: $primary;
+    height: 100vh;
+    display: grid;
+    place-items: center;
+}
+
+.registerForm {
+    width: 90%;
+    height: 80%;
+    display: flex;
+    border: 10px solid $orange;
+}

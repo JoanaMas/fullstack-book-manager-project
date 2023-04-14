@@ -5,6 +5,11 @@ body {
     font-weight: 500;
 }
 
+a {
+    text-decoration: none;
+    color: $black;
+}
+
 .container {
     padding: $p-12 $p-4;
 }

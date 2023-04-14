@@ -1,0 +1,25 @@
+@import '../../../style/variables';
+
+.rightSide {
+    width: inherit;
+    display: flex;
+    flex-direction: column;
+    padding: $p-6;
+
+
+    h3 {
+        font-size: $font-3;
+        color: $orange;
+    }
+
+    .inputFields {
+        margin-top: $m-7;
+    }
+
+    div {
+        display: flex;
+        flex-direction: column;
+        gap: $g-2;
+    }
+
+}

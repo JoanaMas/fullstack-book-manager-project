@@ -1,0 +1,36 @@
+@import '../../../style/variables';
+
+.leftSide {
+    width: inherit;
+    background-image: url("../../../assets/book-illiustration-3.jpg");
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-color: $white;
+    padding-left: $p-5;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+
+    h1 {
+        font-size: 40pt;
+        line-height: 15px;
+        color: $dark-ligther-brown;
+        margin-bottom: $m-10;
+
+        span {
+            font-size: 100pt;
+            color: $orange;
+        }
+    }
+
+    .logIn {
+        h2 {
+            color: $dark-ligther-brown;
+
+            span a {
+                color: $orange;
+            }
+        }
+    }
+}

@@ -11,6 +11,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 // Routes
 import routes from "../../routes/routes";
+// Components
+import ActionButton from "../../components/actionButton/ActionButton";
 
 const HomePage = () => {
   const [openFeatures, setOpenFeatures] = useState(false);
@@ -28,9 +30,7 @@ const HomePage = () => {
             <h1>
               Change your book game - play smart with <span>BookSmart.</span>{" "}
             </h1>
-            <button onClick={() => navigate(routes.registerPage)}>
-              SIGN UP
-            </button>
+            <ActionButton onClick={() => navigate(routes.registerPage)}>Sign Up</ActionButton>
           </div>
           <div className="image"></div>
         </div>
