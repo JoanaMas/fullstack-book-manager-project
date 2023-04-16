@@ -20,10 +20,10 @@ const RegisterPage = () => {
         />
         
         <RightFormSide>
-            <InputField htmlFor={"name"} placeholder={"First name..."} type={"text"} id={"name"}>First Name</InputField>
+            <InputField htmlFor={"name"} placeholder={"First name..."} type={"text"} id={"name"}>First name</InputField>
             <InputField htmlFor={"email"} placeholder={"Email..."} type={"email"} id={"email"}>Email</InputField>
             <InputField htmlFor={"password"} placeholder={"Password..."} type={"password"} id={"password"}>Password</InputField>
-            <InputField htmlFor={"passwordRepeat"} placeholder={"Repeat password..."} type={"password"} id={"passwordRepeat"}>Password</InputField>
+            <InputField htmlFor={"passwordRepeat"} placeholder={"Repeat password..."} type={"password"} id={"passwordRepeat"}>Repeat password</InputField>
             <ActionButton>{"Sign Up"}</ActionButton>
         </RightFormSide>
         </RegisterFormContainer>
