@@ -22,7 +22,7 @@ const Navbar = () => {
             <HomeOutlinedIcon fontSize="large" className="homeIcon" />
           </Link>
           
-          {user && (
+          {!user && (
             <Link>
               <Person2OutlinedIcon fontSize="large" className="homeIcon" />
             </Link>

@@ -6,6 +6,7 @@ import InputField from "../../components/inputFields/InputField";
 import LeftFormSide from "../../components/registerLoginForm/leftSide/LeftFormSide";
 import RightFormSide from "../../components/registerLoginForm/rightSide/RightFormSide";
 import RegisterFormContainer from "../../components/registerLoginForm/registerFormContainer/RegisterFormContainer";
+import ActionButton from "../../components/actionButton/ActionButton";
 
 const RegisterPage = () => {
   return (
@@ -18,11 +19,12 @@ const RegisterPage = () => {
         linkText={"Log In"}
         />
         
-        <RightFormSide buttonText={"Sign Up"}>
+        <RightFormSide>
             <InputField htmlFor={"name"} placeholder={"First name..."} type={"text"} id={"name"}>First Name</InputField>
             <InputField htmlFor={"email"} placeholder={"Email..."} type={"email"} id={"email"}>Email</InputField>
             <InputField htmlFor={"password"} placeholder={"Password..."} type={"password"} id={"password"}>Password</InputField>
             <InputField htmlFor={"passwordRepeat"} placeholder={"Repeat password..."} type={"password"} id={"passwordRepeat"}>Password</InputField>
+            <ActionButton>{"Sign Up"}</ActionButton>
         </RightFormSide>
         </RegisterFormContainer>
     </>

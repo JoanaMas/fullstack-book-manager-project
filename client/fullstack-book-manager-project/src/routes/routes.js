@@ -2,7 +2,7 @@ const routes = {
     registerPage: '/register',
     loginPage: '/login',
     homePage: '/',
-    profilePage: '/profile',
+    profilePage: '/profile/:id',
     singleBookPage: '/single-book-page/:id',
 };
 

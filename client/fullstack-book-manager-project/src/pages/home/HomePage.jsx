@@ -13,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 import routes from "../../routes/routes";
 // Components
 import ActionButton from "../../components/actionButton/ActionButton";
+import Header from "../../components/header/Header";
 
 const HomePage = () => {
   const [openFeatures, setOpenFeatures] = useState(false);
@@ -25,15 +26,10 @@ const HomePage = () => {
   return (
     <div className="homePage">
       <div>
-        <div className="header">
-          <div className="title">
-            <h1>
-              Change your book game - play smart with <span>BookSmart.</span>{" "}
-            </h1>
-            <ActionButton onClick={() => navigate(routes.registerPage)}>Sign Up</ActionButton>
-          </div>
-          <div className="image"></div>
-        </div>
+        
+        <Header title={"Change your book game - play smart with"}>
+        <ActionButton onClick={() => navigate(routes.registerPage)}>Sign Up</ActionButton>
+        </Header>
 
         <div className="content">
           <HomePageCard>

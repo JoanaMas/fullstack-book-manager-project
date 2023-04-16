@@ -1,15 +1,11 @@
-import React from 'react';
-import './registerFormContainer.scss'
+import React from "react";
+import "./registerFormContainer.scss";
 
 const RegisterFormContainer = ({ children }) => {
   return (
-    <div className="registerPage">
-    <div className="registerForm">
-
-      {children}
-
+    <div className="registerPage"> 
+      <div className="registerForm">{children}</div>
     </div>
-  </div>
   );
 };
 

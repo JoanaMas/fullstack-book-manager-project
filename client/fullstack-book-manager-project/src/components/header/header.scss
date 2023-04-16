@@ -1,0 +1,42 @@
+@import '../../style/variables';
+
+.header {
+    width: 100%;
+    height: 400px;
+    background-color: $primary;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    position: relative;
+
+    .title {
+        flex: 1;
+        padding-left: $p-4;
+        padding-bottom: $p-8;
+
+        h1 {
+            color: $dark-green;
+            font-size: $font-6;
+
+            span {
+                display: block;
+                color: $dark-ligther-brown;
+                font-size: 40pt;
+                padding-top: $p-2;
+                
+            }
+        }
+    }
+
+    .image {
+        flex: 2;
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+        background-image: url("../../assets/book-illustration-2.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        border-radius: 0 50px 50px 0;
+    }
+}
