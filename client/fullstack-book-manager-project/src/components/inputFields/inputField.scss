@@ -10,10 +10,7 @@ input {
     height: 60px;
     border: none;
     border-radius: 10px;
-
-    &::placeholder {
-       padding-left: $m-2;
-    }
+    padding-left: $p-2;
 
     &:focus {
         outline-color: $orange;

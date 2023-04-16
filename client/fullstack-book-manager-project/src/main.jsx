@@ -6,11 +6,13 @@ import "./index.css";
 // Redux
 import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
-import userReducer from './redux/user'
+import userReducer from './redux/user';
+import errorReducer from './redux/error';
 
 const store = configureStore({
   reducer: {
-    users: userReducer
+    users: userReducer,
+    error: errorReducer,
   },
 });
 

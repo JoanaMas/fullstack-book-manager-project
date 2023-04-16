@@ -4,7 +4,7 @@ import "./actionButton.scss";
 const ActionButton = ({children, onClick}) => {
   return (
     <div>
-      <button className="button" onClick={onClick}>{children}</button>
+      <button className="button" onClick={() => onClick()}>{children}</button>
     </div>
   );
 };

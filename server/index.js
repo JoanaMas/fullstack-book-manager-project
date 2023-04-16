@@ -40,6 +40,15 @@ const createUser = async () => {
 // createUser()
 
 
+
+// REGISTER USER
+app.post("/register", (req, res) => {
+    console.log(req.body)
+
+    res.send({ok: "ok"})
+})
+
+
 app.listen(4005, () => {
     console.log("Api working!")
 });
