@@ -40,12 +40,39 @@ const createUser = async () => {
 // createUser()
 
 
+const findOneUser = async () => {
+
+    const findUserByEmail = await userSchema.findOne({ email: "joana@gmail.com" })
+
+    console.log(findUserByEmail)
+}
+
+// findOneUser()
+
+
 
 // REGISTER USER
-app.post("/register", (req, res) => {
-    console.log(req.body)
+app.post("/register", async (req, res) => {
+    const newUser = req.body;
+    console.log(newUser);
 
-    res.send({ok: "ok"})
+    const registeredUser = new userSchema({
+        firstName: newUser.name,
+        email: newUser.email,
+        password: newUser.password,
+        profilePicture: newUser.profilePicture,
+    })
+
+    // CHECKING IF USER ALREADY EXIST IN DATABASE WITH THE SAME EMAIL
+    const findUserByEmail = await userSchema.findOne({ email: newUser.email });
+
+    if(findUserByEmail) {
+        return res.status(409).send({ error: "User with same email already exists." });
+    } else {
+        await registeredUser.save()
+        res.send({ ok: "User registration successful" })
+    }
+
 })
 
 
