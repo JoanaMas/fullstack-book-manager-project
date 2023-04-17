@@ -70,10 +70,43 @@ app.post("/register", async (req, res) => {
         return res.status(409).send({ error: "User with same email already exists." });
     } else {
         await registeredUser.save()
-        res.send({ ok: "User registration successful" })
+        res.status(201).send({ ok: "User registration successful." })
     }
 
 })
+
+
+// LOGIN USER
+app.post("/login", async (req, res) => {
+    const user = req.body;
+    // console.log(user);
+
+    const registeredUser = await userSchema.findOne({
+        email: user.email,
+        password: user.password,
+    })
+
+    if(registeredUser) {
+        return res.status(202).send({ success: "User successfully logged in.", user: registeredUser })
+    } else {
+        res.status(409).send({ error: "User was not found." })
+    }
+})
+
+app.get("/userProfile/:id", async (req, res) => {
+    const { id } = req.params;
+
+    const registeredUser = await userSchema.findOne({
+        _id: id
+    })
+
+    console.log(registeredUser)
+    
+    res.send({registeredUser})
+
+})
+
+
 
 
 app.listen(4005, () => {

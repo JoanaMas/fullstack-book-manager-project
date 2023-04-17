@@ -6,11 +6,14 @@ import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import Person2OutlinedIcon from "@mui/icons-material/Person2Outlined";
 import { Link } from "react-router-dom";
 // Redux
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { setCurrentUser } from "../../redux/user";
+
 
 const Navbar = () => {
-  // Null user to fix design
-  const user = useSelector((state) => state.users.value.user);
+
+  const user = useSelector((state) => state.users.value.currentUser);
+  const dispatch = useDispatch();
 
   return (
     <div className="navbar">
@@ -22,8 +25,8 @@ const Navbar = () => {
             <HomeOutlinedIcon fontSize="large" className="homeIcon" />
           </Link>
           
-          {!user && (
-            <Link>
+          {user && (
+            <Link to={"/profile/"+user._id}>
               <Person2OutlinedIcon fontSize="large" className="homeIcon" />
             </Link>
           )}
@@ -32,10 +35,11 @@ const Navbar = () => {
         <div className="authLinks">
           <div className="login">
             <Link
+              onClick={user ?? dispatch(setCurrentUser(null))}
               to={routes.loginPage}
               style={{ textDecoration: "none", color: "black" }}
             >
-              LOG IN
+              {user ? "LOG OUT" : "LOG IN"}
             </Link>
           </div>
           <div className="signUp">

@@ -28,6 +28,7 @@ const RegisterPage = () => {
   const navigate = useNavigate();
 
   const registerUser = () => {
+    
     const newUserData = {
       name: nameRef.current.value,
       email: emailRef.current.value,
@@ -89,7 +90,7 @@ const RegisterPage = () => {
         }
       });
 
-    // navigate(routes.loginPage);
+    navigate(routes.loginPage);
 
   };
 

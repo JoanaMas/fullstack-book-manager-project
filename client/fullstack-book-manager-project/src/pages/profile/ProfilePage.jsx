@@ -1,6 +1,8 @@
 import React from "react";
 import "./profilePage.scss";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import routes from "../../routes/routes";
 // Components
 import Header from "../../components/header/Header";
@@ -14,10 +16,35 @@ import AutoStoriesOutlinedIcon from "@mui/icons-material/AutoStoriesOutlined";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import ClearOutlinedIcon from '@mui/icons-material/ClearOutlined';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
+// Redux
+import { useSelector, useDispatch } from "react-redux";
+import { setCurrentUser } from "../../redux/user";
+
 
 const ProfilePage = () => {
   const [openPictureUpload, setOpenPictureUpload] = useState(false);
   const [openCreateBookForm, setOpenCreateBookForm] = useState(false);
+  const currentUser = useSelector((store) => store.users.value.currentUser);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+
+  const { id } = useParams();
+
+  useEffect(() => {
+    fetch("http://localhost:4005/userProfile/"+id)
+    .then(res => res.json())
+    .then(data => {
+      if(data.registeredUser) {
+        dispatch(setCurrentUser(data.registeredUser))
+      } else {
+        dispatch(setCurrentUser(null))
+        navigate(routes.homePage)
+      }
+    })
+  }, [])
+
+
 
   const handleUploadPhotoOpen = () => {
     setOpenPictureUpload(!openPictureUpload);
@@ -41,7 +68,7 @@ const ProfilePage = () => {
     <div className="profileContainer">
       <div className="userProfileContainer">
         <div className="image">
-          <img src={user.image} />
+          <img src={currentUser?.profilePicture} />
           <div className="editIcon" onClick={handleUploadPhotoOpen}>
             <ModeEditOutlinedIcon />
           </div>
@@ -49,7 +76,7 @@ const ProfilePage = () => {
 
         <div className="userInfo">
           <div>
-            <h3>{user.email} </h3>
+            <h3>{currentUser?.email} </h3>
           </div>
           <div className="stats">
             <h5>
@@ -69,7 +96,7 @@ const ProfilePage = () => {
         <button>Upload</button>
       </div>
 
-      <Header title={`Welcome, ${user.name}! Enjoy becoming`}>
+      <Header title={`Welcome, ${currentUser?.firstName}! Enjoy using`}>
         <ActionButton onClick={handleCreateBookFormOpen}>Create book!</ActionButton>
       </Header>
 
