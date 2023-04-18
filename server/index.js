@@ -107,6 +107,21 @@ app.get("/userProfile/:id", async (req, res) => {
 })
 
 
+app.post("/profileImageUpload", async (req, res) => {
+    const { imageUrl, userId } = req.body;
+
+    const updateUserProfilePicture = await userSchema.updateOne
+    ({ _id: userId },
+    { $set: { profilePicture: imageUrl} })
+
+    const findUserWithUpdatedPicture = await userSchema.findOne({
+        _id: userId
+    })
+
+    res.send({ ok: "ok", updatedUser: findUserWithUpdatedPicture })
+})
+
+
 
 
 app.listen(4005, () => {

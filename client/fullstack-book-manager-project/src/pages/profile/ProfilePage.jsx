@@ -1,6 +1,6 @@
 import React from "react";
 import "./profilePage.scss";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import routes from "../../routes/routes";
@@ -19,17 +19,22 @@ import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOu
 // Redux
 import { useSelector, useDispatch } from "react-redux";
 import { setCurrentUser } from "../../redux/user";
+import { changeErrorMessage } from "../../redux/error";
+
 
 
 const ProfilePage = () => {
   const [openPictureUpload, setOpenPictureUpload] = useState(false);
   const [openCreateBookForm, setOpenCreateBookForm] = useState(false);
   const currentUser = useSelector((store) => store.users.value.currentUser);
+  const error = useSelector((store) => store.error.value.error);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
 
   const { id } = useParams();
+
+  // DISPLAYED CURRENT USER IN PROFILE
 
   useEffect(() => {
     fetch("http://localhost:4005/userProfile/"+id)
@@ -43,7 +48,6 @@ const ProfilePage = () => {
       }
     })
   }, [])
-
 
 
   const handleUploadPhotoOpen = () => {
@@ -62,6 +66,49 @@ const ProfilePage = () => {
   const totalOfPages = pages.reduce((sum, oneBookPages) => {
     return sum + oneBookPages;
   }, 0);
+
+
+
+  // USER PROFILE PICTURE UPDATE
+  const urlRef = useRef();
+  const urlValidationRegex = /(http[s]*:\/\/)([a-z\-_0-9\/.]+)\.([a-z.]{2,3})\/([a-z0-9\-_\/._~:?#\[\]@!$&'()*+,;=%]*)([a-z0-9]+\.)(jpg|jpeg|png)/i;
+
+  const handleProfilePictureUpload = () => {
+    
+    const url = {
+      userId: id,
+      imageUrl: urlRef.current.value
+    }
+
+    const validUrl = urlValidationRegex.test(url.imageUrl)
+
+    
+    // SENDING DATA TO BACK-END
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(url),
+    };
+
+    fetch("http://localhost:4005/profileImageUpload", options)
+      .then((res) => res.json())
+      .then((data) => {
+        if(validUrl) {
+          dispatch(setCurrentUser(data.updatedUser))
+          setOpenPictureUpload(false)
+        } else {
+          dispatch(changeErrorMessage("Please enter valid URL address."))
+        }
+      });
+
+      
+
+  }
+
+
+
 
   return (
     // USER BOARD
@@ -92,8 +139,9 @@ const ProfilePage = () => {
       {/* PROFILE PICTURE UPLOAD */}
       <div className={openPictureUpload ? "pictureUploadContainer" : "d-none"}>
         <h3>Upload your picture</h3>
-        <input type="text" placeholder="Enter your picture URL..." />
-        <button>Upload</button>
+        <input type="text" placeholder="Enter your picture URL..." ref={urlRef} />
+        <button onClick={handleProfilePictureUpload}>Upload</button>
+        {error}
       </div>
 
       <Header title={`Welcome, ${currentUser?.firstName}! Enjoy using`}>
@@ -121,7 +169,8 @@ const ProfilePage = () => {
        <InputField htmlFor={"year"} placeholder={"Enter year of publication..."} type={"text"} id={"year"}>Year of publication</InputField>
        <InputField htmlFor={"cover"} placeholder={"Enter URL..."} type={"text"} id={"cover"}>Book cover</InputField>
       
-        <div className="createBookBtn"><ActionButton>Create book</ActionButton></div>
+        {/* <div className="createBookBtn"><ActionButton>Create book</ActionButton></div> */}
+        <ActionButton>Create book</ActionButton>
 
        </RightFormSide>
       
