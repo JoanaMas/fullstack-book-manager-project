@@ -125,8 +125,22 @@ const ProfilePage = () => {
       cover: coverRef.current.value,
       isFinished: false,
     }
-
       console.log(newBook)
+
+    // SENDING DATA TO BACK-END
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newBook),
+    };
+
+    fetch("http://localhost:4005/createBook", options)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data)
+      });
   }
 
 

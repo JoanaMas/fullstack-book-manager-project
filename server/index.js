@@ -16,6 +16,7 @@ mongoose.connect("mongodb+srv://joanamastianica:root2025@cluster0.l8vzeuj.mongod
 
 // PROJECT SCHEMAS
 const userSchema = require("./schemas/userSchema")
+const createBookSchema = require("./schemas/createBookSchema")
 
 const createUser = async () => {
 
@@ -119,6 +120,24 @@ app.post("/profileImageUpload", async (req, res) => {
     })
 
     res.send({ ok: "ok", updatedUser: findUserWithUpdatedPicture })
+})
+
+
+app.post("/createBook", async (req, res) => {
+    const book = req.body;
+
+    const newBook = new createBookSchema({
+        author: book.author,
+        title: book.title,
+        pages: book.pages,
+        year: book.year,
+        cover: book.cover,
+        isFinished: book.isFinished
+    })
+
+    await newBook.save()
+
+    res.send({ok: 'ok'})
 })
 
 
