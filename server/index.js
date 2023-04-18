@@ -18,6 +18,7 @@ mongoose.connect("mongodb+srv://joanamastianica:root2025@cluster0.l8vzeuj.mongod
 const userSchema = require("./schemas/userSchema")
 const createBookSchema = require("./schemas/createBookSchema")
 
+// TEST
 const createUser = async () => {
 
     const test = {
@@ -40,6 +41,7 @@ const createUser = async () => {
 
 // createUser()
 
+// TEST
 
 const findOneUser = async () => {
 
@@ -49,6 +51,18 @@ const findOneUser = async () => {
 }
 
 // findOneUser()
+
+// TEST
+const findBooksInProgress = async () => {
+
+    const booksInProgress = await createBookSchema.find({ isFinished: false })
+
+    console.log(booksInProgress)
+}
+
+// findBooksInProgress()
+
+
 
 
 
@@ -137,7 +151,30 @@ app.post("/createBook", async (req, res) => {
 
     await newBook.save()
 
-    res.send({ok: 'ok'})
+    res.send({ok: 'Book created successfully'})
+})
+
+app.get("/getBooksInProgress", async (req, res) => {
+    const notFinishedBooks = await createBookSchema.find({
+        isFinished: false
+    }) 
+
+    res.send({ok: 'ok', booksInProgress: notFinishedBooks})
+})
+
+app.post("/updateBookFinished", async (req, res) => {
+    const { finished, bookId } = req.body;
+    
+    const bookIsFinishedUpdate = await createBookSchema.updateOne(
+        { _id: bookId },
+        { $set: { isFinished: finished }}
+    )
+
+    const findFinishedBook = await createBookSchema.findOne({
+        _id: bookId
+    })
+    
+    res.send({ok: "ok", finishedBook: findFinishedBook})
 })
 
 

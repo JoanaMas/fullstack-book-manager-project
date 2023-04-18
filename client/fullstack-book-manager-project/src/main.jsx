@@ -8,11 +8,13 @@ import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import userReducer from './redux/user';
 import errorReducer from './redux/error';
+import booksReducer from './redux/books';
 
 const store = configureStore({
   reducer: {
     users: userReducer,
     error: errorReducer,
+    books: booksReducer,
   },
 });
 
