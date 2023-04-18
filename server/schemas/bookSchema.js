@@ -21,8 +21,12 @@ const bookSchema = new Schema({
     cover: {
         type: String,
         required: true,
+    },
+    isFinished: {
+        type: Boolean,
+        required: true,
     }
 });
 
-const Product = mongoose.model("book-app-books", userSchema);
+const Product = mongoose.model("book-app-created-books", userSchema);
 module.exports = Product;

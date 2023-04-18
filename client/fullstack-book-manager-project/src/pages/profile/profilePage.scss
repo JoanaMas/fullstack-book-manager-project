@@ -24,7 +24,7 @@
     display: flex;
     align-items: center;
     img {
-    width: 120px;
+      width: 120px;
       height: 120px;
       border-radius: 50%;
       margin-left: $m-4;
@@ -49,180 +49,186 @@
     height: 100%;
     color: $dark-green;
     h3 {
-        margin-bottom: $m-2;
-        font-size: $font-5;
+      margin-bottom: $m-2;
+      font-size: $font-5;
     }
+  }
 
+  h5 {
+    font-size: $font-5;
+    margin-right: $m-5;
+
+    span {
+      color: $orange;
     }
-
-    h5 {
-        font-size: $font-5;
-        margin-right: $m-5;
-
-        span {
-            color: $orange;
-        }
-    }
-
+  }
 }
-
 
 .pictureUploadContainer {
-    width: 600px;
-    height: 250px;
-    padding: $p-2;
-    background-color: $orange;
-    border-radius: 50px;
-    color: $white;
-    display: flex;
-    flex-direction: column;
-    gap: $g-2;
-    padding: $p-3;
-    z-index: 3;
-    position: absolute;
-    top: 230px;
-    left: 220px;
+  width: 600px;
+  height: 250px;
+  padding: $p-2;
+  background-color: $orange;
+  border-radius: 50px;
+  color: $white;
+  display: flex;
+  flex-direction: column;
+  gap: $g-2;
+  padding: $p-3;
+  z-index: 3;
+  position: absolute;
+  top: 230px;
+  left: 220px;
 
-    input {
-        border: 1px solid $dark-green;
-    }
+  input {
+    border: 1px solid $dark-green;
+  }
 
-    button {
-        height: 40px;
-        border: none;
-        border-radius: 10px;
-        font-size: $font-3;
-        color: $dark-ligther-brown;
-    }
+  button {
+    height: 40px;
+    border: none;
+    border-radius: 10px;
+    font-size: $font-3;
+    color: $dark-ligther-brown;
+  }
 }
-
-
-
-
-
-
 
 .singleBookContainer {
+  width: 100%;
+  height: 100%;
+  padding: $p-2;
+  border: 5px solid $orange;
+  border-radius: 50px;
+
+  .addBook {
+    display: flex;
+    justify-content: space-between;
+
+    h3 {
+      margin: $m-2 0 $m-1 $m-4;
+      color: $dark-green;
+    }
+
+    .addIcon {
+      color: $orange;
+      * {
+        font-size: 40pt;
+      }
+    }
+  }
+
+  .booksInProgress {
     width: 100%;
     height: 100%;
-    padding: $p-2;
-    border: 5px solid $orange;
-    border-radius: 50px;
+    display: grid;
+    grid-template-columns: repeat(30, 1fr);
+    overflow: scroll;
 
-    .addBook {
-        display: flex;
-        justify-content: space-between;
+    .oneBook {
+      padding: $p-2;
 
-        h3 {
-            margin: $m-2 0 $m-1 $m-4;
-            color: $dark-green;
+      .cover {
+        position: relative;
+
+        img {
+          width: 150px;
+          height: auto;
+          border-radius: 10px;
         }
 
-        .addIcon {
-            color: $orange;
-            * {
-                font-size: 40pt;
-            }
+        .deleteButton {
+          width: 30px;
+          height: 30px;
+          position: absolute;
+          top: 10px;
+          right: 10px;
+          background-color: $orange;
+          border-radius: 50%;
+          text-align: center;
+          padding-top: 3px;
+          color: $white;
         }
-    }
+      }
 
+      h5 {
+        margin: $m-1 0;
+      }
 
-    .booksInProgress {
+      h5,
+      h6 {
+        color: $dark-green;
         width: 100%;
-        height: 100%;
-        display: grid;
-        grid-template-columns: repeat(30, 1fr);
-        overflow: scroll;
-    
-        .oneBook {
-            padding: $p-2;
+        text-align: center;
+      }
 
-            .cover {
-                position: relative;
-                
-                img {
-                    width: 150px;
-                    height: auto;
-                    border-radius: 10px;
-                }
+      .author {
+        display: flex;
+        margin-top: $m-1;
+      }
 
-                .deleteButton {
-                    width: 30px;
-                    height: 30px;
-                    position: absolute;
-                    top: 10px;
-                    right: 10px;
-                    background-color: $orange;
-                    border-radius: 50%;
-                    text-align: center;
-                    padding-top: 3px;
-                    color: $white;
-
-                }
-            }
-    
-
-
-            h5 {
-                margin: $m-1 0;
-            }
-
-            h5, h6 {
-                color: $dark-green;
-                width: 100%;
-                text-align: center;
-            }
-
-            .author {
-                display: flex;
-                margin-top: $m-1;
-            }
-
-            .pages {
-                background-color: $dark-green;
-                color: $white;
-                text-align: center;
-                margin-top: $m-1;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                gap: $g-2;
-                padding: $p-1 0;
-                border-radius: 10px;
-
-            }
-
-        }
-
-    }
-}
-
-
-.createBookInputs {
-    position: relative;
-    width: 100%;
-
-    .createBookTitle {
+      .pages {
+        background-color: $dark-green;
+        color: $white;
+        text-align: center;
+        margin-top: $m-1;
         display: flex;
         align-items: center;
-        justify-content: space-between;
-
-        h1 {
-            color: $orange;
-            padding: $p-1 0 0 $p-4;
-        }
-
-        .closeIcon {
-            color: $orange;
-            padding: $p-4;
-        }
+        justify-content: center;
+        gap: $g-2;
+        padding: $p-1 0;
+        border-radius: 10px;
+      }
     }
-
-
-    .createBookBtn {
-        position: absolute;
-        bottom: 10px;
-   
-    }
-
+  }
 }
+
+.createBookInputs {
+  position: relative;
+  width: 100%;
+
+  .createBookTitle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    h1 {
+      color: $orange;
+      padding: $p-1 0 0 $p-4;
+    }
+
+    .closeIcon {
+      color: $orange;
+      padding: $p-4;
+    }
+  }
+
+  .createBookBtn {
+    position: absolute;
+    top: 180px;
+    right: 40px;
+
+    * {
+      width: 140px;
+      height: 80px;
+    }
+  }
+}
+
+.finishedBook {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: $g-1;
+  margin-top: $m-1;
+
+  .checkbox {
+    width: 100px;
+    width: 10px;
+  }
+
+  label {
+    color: $dark-green;
+    font-size: $font-1;
+  }
+
+  }
