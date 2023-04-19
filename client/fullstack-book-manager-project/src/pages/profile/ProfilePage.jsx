@@ -135,10 +135,12 @@ const ProfilePage = () => {
       body: JSON.stringify(bookIsFinished),
     };
 
-    fetch("http://localhost:4005/updateBookFinished", options)
+    fetch("http://localhost:4005/updateBookFinished/" + id, options)
     .then((res) => res.json())
     .then((data) => {
       console.log(data)
+      dispatch(setBooks(data.booksInProgress));
+
     })
   };
 

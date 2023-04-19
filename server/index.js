@@ -137,7 +137,6 @@ app.post("/profileImageUpload", async (req, res) => {
 
 app.post("/createBook/:id", async (req, res) => {
     const { id } = req.params;
-    console.log(id)
 
     const book = req.body;
 
@@ -172,22 +171,21 @@ app.get("/getBooksInProgress/:id", async (req, res) => {
 })
 
 
+app.post("/updateBookFinished/:id", async (req, res) => {
+    const { id } = req.params;
 
-app.post("/updateBookFinished", async (req, res) => {
     const { finished, bookId } = req.body;
-    console.log(finished)
-    console.log(bookId)
 
     const bookIsFinishedUpdate = await createBookSchema.updateOne(
         { _id: bookId },
         { $set: { isFinished: finished }}
     )
 
-    const findFinishedBook = await createBookSchema.findOne({
-        _id: bookId
-    })
+    const notFinishedBooks = await createBookSchema.find(
+        { userId: id, isFinished: false })
+
     
-    res.send({ok: "ok", finishedBook: findFinishedBook})
+    res.send({ok: "ok", booksInProgress: notFinishedBooks})
 })
 
 
