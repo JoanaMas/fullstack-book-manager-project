@@ -17,7 +17,7 @@ const userSchema = new Schema({
     profilePicture: {
         type: String,
         required: true,
-    }
+    },
 });
 
 const Product = mongoose.model("book-app-users", userSchema);

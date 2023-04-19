@@ -25,7 +25,11 @@ const createBookSchema = new Schema({
     isFinished: {
         type: Boolean,
         required: true,
-    }
+    },
+    userId: {
+        type: String,
+        required: true,
+    },
 });
 
 const Product = mongoose.model("book-app-created-books", createBookSchema);

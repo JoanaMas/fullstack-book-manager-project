@@ -68,6 +68,10 @@ const ProfilePage = () => {
     return sum + oneBookPages;
   }, 0);
 
+
+
+
+
   // USER PROFILE PICTURE UPDATE
   const urlRef = useRef();
   const urlValidationRegex =
@@ -102,14 +106,21 @@ const ProfilePage = () => {
       });
   };
 
+
+
+
+
+
   // BOOK IS FINISHED
-  const [checked, setChecked] = useState(false);
+  const [checked, setChecked] = useState(true);
   const [bookId, setBookId] = useState('');
 
   const bookFinished = (bookId) => {
 
     setBookId(bookId)
-    setChecked(true)
+
+    console.log(bookId)
+    console.log(checked)
 
     const bookIsFinished = {
       bookId: bookId,
@@ -129,15 +140,8 @@ const ProfilePage = () => {
     .then((data) => {
       console.log(data)
     })
-
-    console.log(bookId)
-
-
-    
   };
 
-  // console.log(index)
-  // console.log(checked)
 
   // CREATE BOOK
   const authorRef = useRef();
@@ -154,7 +158,9 @@ const ProfilePage = () => {
       year: yearRef.current.value,
       cover: coverRef.current.value,
       isFinished: false,
+      userId: id,
     };
+
     console.log(newBook);
 
     // SENDING DATA TO BACK-END
@@ -166,15 +172,20 @@ const ProfilePage = () => {
       body: JSON.stringify(newBook),
     };
 
-    fetch("http://localhost:4005/createBook", options)
+    fetch("http://localhost:4005/createBook/" + id, options)
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
+        dispatch(setBooks(data.allBooks));
+        setOpenCreateBookForm(false)
       });
   };
 
+
+  // GET BOOKS BY USER ID THAT ARE IN PROGRESS OF READING
+
   useEffect(() => {
-    fetch("http://localhost:4005/getBooksInProgress")
+    fetch("http://localhost:4005/getBooksInProgress/" + id)
       .then((res) => res.json())
       .then((data) => {
         dispatch(setBooks(data.booksInProgress));
@@ -182,7 +193,6 @@ const ProfilePage = () => {
       });
   }, []);
 
-  // console.log(booksInProgress)
 
   return (
     // USER BOARD

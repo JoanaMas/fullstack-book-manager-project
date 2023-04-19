@@ -120,18 +120,20 @@
   .booksInProgress {
     width: 100%;
     height: 100%;
-    display: grid;
-    grid-template-columns: repeat(30, 1fr);
+    display: flex;
     overflow: scroll;
 
     .oneBook {
+      width: 25%;
       padding: $p-2;
-
+      display: flex;
+      flex-direction: column;
+      
       .cover {
         position: relative;
 
         img {
-          width: 150px;
+          width: 100%;
           height: auto;
           border-radius: 10px;
         }
@@ -150,34 +152,43 @@
         }
       }
 
-      h5 {
-        margin: $m-1 0;
-      }
-
-      h5,
-      h6 {
-        color: $dark-green;
-        width: 100%;
-        text-align: center;
-      }
-
-      .author {
+      .bookInfo {
         display: flex;
-        margin-top: $m-1;
+        flex-direction: column;
+        flex: 1;
+        justify-content: flex-end;
+    
+        
+        h5 {
+          margin: $m-1 0;
+        }
+  
+        h5,
+        h6 {
+          color: $dark-green;
+          width: 100%;
+          text-align: center;
+        }
+  
+        .author {
+          display: flex;
+          margin-top: $m-1;
+        }
+  
+        .pages {
+          background-color: $dark-green;
+          color: $white;
+          text-align: center;
+          margin-top: $m-1;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: $g-2;
+          padding: $p-1 0;
+          border-radius: 10px;
+        }
       }
 
-      .pages {
-        background-color: $dark-green;
-        color: $white;
-        text-align: center;
-        margin-top: $m-1;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: $g-2;
-        padding: $p-1 0;
-        border-radius: 10px;
-      }
     }
   }
 }
