@@ -1,0 +1,32 @@
+@import "../../style/variables";
+@import "../../style/style";
+
+
+.pictureUploadContainer {
+    width: 600px;
+    height: 250px;
+    padding: $p-2;
+    background-color: $orange;
+    border-radius: 50px;
+    color: $white;
+    display: flex;
+    flex-direction: column;
+    gap: $g-2;
+    padding: $p-3;
+    z-index: 3;
+    position: absolute;
+    top: 230px;
+    left: 220px;
+  
+    input {
+      border: 1px solid $dark-green;
+    }
+  
+    button {
+      height: 40px;
+      border: none;
+      border-radius: 10px;
+      font-size: $font-3;
+      color: $dark-ligther-brown;
+    }
+  }

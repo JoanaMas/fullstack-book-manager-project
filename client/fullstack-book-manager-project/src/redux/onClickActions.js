@@ -5,6 +5,7 @@ export const actionsSlice = createSlice({
     initialState: {
         value: {
             openCreateBookForm: false,
+            openPictureUpload: false,
         }
     },
 
@@ -12,14 +13,15 @@ export const actionsSlice = createSlice({
         
         setOpenCreateBookForm: (state, action) => {
             state.value.openCreateBookForm = action.payload;
+        },
+
+        setOpenPictureUpload: (state, action) => {
+            state.value.openPictureUpload = action.payload;
         }
-        // setBooks: (state, action) => {
-        //     state.value.books = action.payload;
-        // }
 
     }
 })
 
-export const { setOpenCreateBookForm } = actionsSlice.actions;
+export const { setOpenCreateBookForm, setOpenPictureUpload } = actionsSlice.actions;
 
 export default actionsSlice.reducer;
