@@ -1,0 +1,71 @@
+@import "../../style/variables";
+@import "../../style/style";
+
+
+.oneBook {
+    width: 25%;
+    padding: $p-2;
+    display: flex;
+    flex-direction: column;
+    
+    .cover {
+      position: relative;
+
+      img {
+        width: 100%;
+        height: auto;
+        border-radius: 10px;
+      }
+
+      .deleteButton {
+        width: 30px;
+        height: 30px;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background-color: $orange;
+        border-radius: 50%;
+        text-align: center;
+        padding-top: 3px;
+        color: $white;
+      }
+    }
+
+    .bookInfo {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      justify-content: flex-end;
+  
+      
+      h5 {
+        margin: $m-1 0;
+      }
+
+      h5,
+      h6 {
+        color: $dark-green;
+        width: 100%;
+        text-align: center;
+      }
+
+      .author {
+        display: flex;
+        margin-top: $m-1;
+      }
+
+      .pages {
+        background-color: $dark-green;
+        color: $white;
+        text-align: center;
+        margin-top: $m-1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: $g-2;
+        padding: $p-1 0;
+        border-radius: 10px;
+      }
+    }
+
+  }

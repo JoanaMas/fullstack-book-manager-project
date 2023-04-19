@@ -14,8 +14,7 @@ export const userSlice = createSlice({
 
         setCurrentUser: (state, action) => {
             state.value.currentUser = action.payload;
-        }
-
+        },
     }
 })
 

@@ -10,32 +10,33 @@ import ActionButton from "../../components/actionButton/ActionButton";
 import RightFormSide from "../../components/registerLoginForm/rightSide/RightFormSide";
 import RegisterFormContainer from "../../components/registerLoginForm/registerFormContainer/RegisterFormContainer";
 import InputField from "../../components/inputFields/InputField";
+import OneBookCard from "../../components/oneBookCard/OneBookCard";
+import CreateBookForm from "../../components/createBookForm/CreateBookForm";
 // Icons
 import ModeEditOutlinedIcon from "@mui/icons-material/ModeEditOutlined";
-import AutoStoriesOutlinedIcon from "@mui/icons-material/AutoStoriesOutlined";
-import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import ClearOutlinedIcon from "@mui/icons-material/ClearOutlined";
 import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
-import BookmarkBorderOutlinedIcon from "@mui/icons-material/BookmarkBorderOutlined";
-import BookmarkOutlinedIcon from "@mui/icons-material/BookmarkOutlined";
 // Redux
 import { useSelector, useDispatch } from "react-redux";
 import { setCurrentUser } from "../../redux/user";
 import { changeErrorMessage } from "../../redux/error";
 import { setBooks } from "../../redux/books";
+import { setOpenCreateBookForm } from "../../redux/onClickActions";
 
 const ProfilePage = () => {
+
   const [openPictureUpload, setOpenPictureUpload] = useState(false);
-  const [openCreateBookForm, setOpenCreateBookForm] = useState(false);
   const currentUser = useSelector((store) => store.users.value.currentUser);
   const error = useSelector((store) => store.error.value.error);
   const booksInProgress = useSelector((store) => store.books.value.books);
+  const handleOpenCreateBookForm = useSelector((store) => store.onClickActions.value.openCreateBookForm);
+
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const { id } = useParams();
-
+ 
   // DISPLAYED CURRENT USER IN PROFILE
 
   useEffect(() => {
@@ -56,7 +57,7 @@ const ProfilePage = () => {
   };
 
   const handleCreateBookFormOpen = () => {
-    setOpenCreateBookForm(!openCreateBookForm);
+    dispatch(setOpenCreateBookForm(!handleOpenCreateBookForm))
   };
 
   // TOTAL BOOKS COUNT
@@ -110,75 +111,75 @@ const ProfilePage = () => {
 
 
   // BOOK IS FINISHED
-  const [checked, setChecked] = useState(true);
-  const [bookId, setBookId] = useState('');
+  // const [checked, setChecked] = useState(true);
+  // const [bookId, setBookId] = useState('');
 
-  const bookFinished = (bookId) => {
+  // const bookFinished = (bookId) => {
 
-    setBookId(bookId)
+  //   setBookId(bookId)
 
-    console.log(bookId)
-    console.log(checked)
+  //   console.log(bookId)
+  //   console.log(checked)
 
-    const bookIsFinished = {
-      bookId: bookId,
-      finished: checked,
-    }
+  //   const bookIsFinished = {
+  //     bookId: bookId,
+  //     finished: checked,
+  //   }
 
-    const options = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(bookIsFinished),
-    };
+  //   const options = {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify(bookIsFinished),
+  //   };
 
-    fetch("http://localhost:4005/updateBookFinished/" + id, options)
-    .then((res) => res.json())
-    .then((data) => {
-      console.log(data)
-      dispatch(setBooks(data.booksInProgress));
+  //   fetch("http://localhost:4005/updateBookFinished/" + id, options)
+  //   .then((res) => res.json())
+  //   .then((data) => {
+  //     console.log(data)
+  //     dispatch(setBooks(data.booksInProgress));
 
-    })
-  };
+  //   })
+  // };
 
 
   // CREATE BOOK
-  const authorRef = useRef();
-  const titleRef = useRef();
-  const pagesRef = useRef();
-  const yearRef = useRef();
-  const coverRef = useRef();
+  // const authorRef = useRef();
+  // const titleRef = useRef();
+  // const pagesRef = useRef();
+  // const yearRef = useRef();
+  // const coverRef = useRef();
 
-  const createBook = () => {
-    const newBook = {
-      author: authorRef.current.value,
-      title: titleRef.current.value,
-      pages: pagesRef.current.value,
-      year: yearRef.current.value,
-      cover: coverRef.current.value,
-      isFinished: false,
-      userId: id,
-    };
+  // const createBook = () => {
+  //   const newBook = {
+  //     author: authorRef.current.value,
+  //     title: titleRef.current.value,
+  //     pages: pagesRef.current.value,
+  //     year: yearRef.current.value,
+  //     cover: coverRef.current.value,
+  //     isFinished: false,
+  //     userId: id,
+  //   };
 
 
-    // SENDING DATA TO BACK-END
-    const options = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newBook),
-    };
+  //   // SENDING DATA TO BACK-END
+  //   const options = {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify(newBook),
+  //   };
 
-    fetch("http://localhost:4005/createBook/" + id, options)
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        dispatch(setBooks(data.allBooks));
-        setOpenCreateBookForm(false)
-      });
-  };
+  //   fetch("http://localhost:4005/createBook/" + id, options)
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       console.log(data);
+  //       dispatch(setBooks(data.allBooks));
+  //       dispatch(setOpenCreateBookForm(false))
+  //     });
+  // };
 
 
   // GET BOOKS BY USER ID THAT ARE IN PROGRESS OF READING
@@ -195,30 +196,28 @@ const ProfilePage = () => {
 
 
   // DELETE BOOK IN PROGRESS
-  const deleteBookInProgress = (bookId, userId) => {
+  // const deleteBookInProgress = (bookId, userId) => {
 
-      const uniqueBookId = {
-        bookId: bookId,
-        userId: userId,
-      }
+  //     const uniqueBookId = {
+  //       bookId: bookId,
+  //       userId: userId,
+  //     }
 
-      const options = {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(uniqueBookId),
-      };
+  //     const options = {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify(uniqueBookId),
+  //     };
 
-      fetch("http://localhost:4005/deleteBook", options)
-      .then((res) => res.json())
-      .then((data) => {
-        dispatch(setBooks(data.booksInProgress))
-        console.log(data)
-      })
-
-
-  }
+  //     fetch("http://localhost:4005/deleteBook", options)
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       dispatch(setBooks(data.booksInProgress))
+  //       console.log(data)
+  //     })
+  // }
 
 
 
@@ -260,15 +259,22 @@ const ProfilePage = () => {
         {error}
       </div>
 
+      {/* HEADER */}
       <Header title={`Welcome, ${currentUser?.firstName}! Enjoy using`}>
         <ActionButton onClick={handleCreateBookFormOpen}>
           Create book!
         </ActionButton>
       </Header>
 
+
       {/* CREATE BOOK FORM */}
-      <div className={openCreateBookForm ? "d-flex" : "d-none"}>
-        <RegisterFormContainer>
+      <div className={handleOpenCreateBookForm? "d-flex" : "d-none"}>
+        <CreateBookForm 
+        currentUserId={id}
+        handleCreateBookFormOpen={handleCreateBookFormOpen}
+        />
+
+        {/* <RegisterFormContainer>
           <div className="createBookInputs">
             <div className="createBookTitle" onClick={handleCreateBookFormOpen}>
               <h1>Create a book</h1>
@@ -330,7 +336,9 @@ const ProfilePage = () => {
               </div>
             </RightFormSide>
           </div>
-        </RegisterFormContainer>
+        </RegisterFormContainer> */}
+
+
       </div>
 
       {/* CURRENTLY READING */}
@@ -342,46 +350,54 @@ const ProfilePage = () => {
           </div>
         </div>
         <div className="booksInProgress">
+          
           {/* ONE BOOK */}
-
           {booksInProgress.map((book, i) => 
+          <OneBookCard 
+          key={i}
+          cover={book.cover}
+          title={book.title}
+          year={book.year}
+          author={book.author}
+          pages={book.pages}
+          bookId={book._id}
+          userId={book.userId}
+          currentUserId={id}
+          />
           
-          <div key={i} className="oneBook">
-            <div className="cover">
-              <img src={book.cover} alt="cover" />
+          // <div key={i} className="oneBook">
+          //   <div className="cover">
+          //     <img src={book.cover} alt="cover" />
 
-              <div className="deleteButton" onClick={() => deleteBookInProgress(book._id, book.userId)}>
-                <DeleteOutlineOutlinedIcon />
-              </div>
+          //     <div className="deleteButton" onClick={() => deleteBookInProgress(book._id, book.userId)}>
+          //       <DeleteOutlineOutlinedIcon />
+          //     </div>
 
-            </div>
-            <div className="bookInfo">
-              <h5>
-                {book.title}, {book.year}
-              </h5>
-              <hr />
+          //   </div>
+          //   <div className="bookInfo">
+          //     <h5>
+          //       {book.title}, {book.year}
+          //     </h5>
+          //     <hr />
 
-              <div className="author">
-                <h6>{book.author}</h6>
-              </div>
-              <div className="pages">
-                <span>
-                  <AutoStoriesOutlinedIcon />
-                </span>
-                <p>{book.pages}</p>
-              </div>
-              <div className="finishedBook">
-                {bookId === book._id
-                ? <BookmarkOutlinedIcon onClick={() => bookFinished(book._id)} />
-                : <BookmarkBorderOutlinedIcon onClick={() => bookFinished(book._id)}></BookmarkBorderOutlinedIcon>
-                }
-                <label htmlFor="finished">Finished!</label>
-              </div>
-            </div>
-          </div>
-          
-
-
+          //     <div className="author">
+          //       <h6>{book.author}</h6>
+          //     </div>
+          //     <div className="pages">
+          //       <span>
+          //         <AutoStoriesOutlinedIcon />
+          //       </span>
+          //       <p>{book.pages}</p>
+          //     </div>
+          //     <div className="finishedBook">
+          //       {bookId === book._id
+                // ? <BookmarkOutlinedIcon onClick={() => bookFinished(book._id)} />
+          //       : <BookmarkBorderOutlinedIcon onClick={() => bookFinished(book._id)}></BookmarkBorderOutlinedIcon>
+          //       }
+          //       <label htmlFor="finished">Finished!</label>
+          //     </div>
+          //   </div>
+          // </div>
           )}
 
         </div>

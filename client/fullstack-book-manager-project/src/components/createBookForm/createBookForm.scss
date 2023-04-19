@@ -1,0 +1,34 @@
+@import "../../style/variables";
+@import "../../style/style";
+
+.createBookInputs {
+    position: relative;
+    width: 100%;
+  
+    .createBookTitle {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+  
+      h1 {
+        color: $orange;
+        padding: $p-1 0 0 $p-4;
+      }
+  
+      .closeIcon {
+        color: $orange;
+        padding: $p-4;
+      }
+    }
+  
+    .createBookBtn {
+      position: absolute;
+      top: 180px;
+      right: 40px;
+  
+      * {
+        width: 140px;
+        height: 80px;
+      }
+    }
+  }
