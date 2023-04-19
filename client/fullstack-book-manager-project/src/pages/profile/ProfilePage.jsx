@@ -109,8 +109,6 @@ const ProfilePage = () => {
 
 
 
-
-
   // BOOK IS FINISHED
   const [checked, setChecked] = useState(true);
   const [bookId, setBookId] = useState('');
@@ -163,7 +161,6 @@ const ProfilePage = () => {
       userId: id,
     };
 
-    console.log(newBook);
 
     // SENDING DATA TO BACK-END
     const options = {
@@ -185,7 +182,6 @@ const ProfilePage = () => {
 
 
   // GET BOOKS BY USER ID THAT ARE IN PROGRESS OF READING
-
   useEffect(() => {
     fetch("http://localhost:4005/getBooksInProgress/" + id)
       .then((res) => res.json())
@@ -194,6 +190,36 @@ const ProfilePage = () => {
         console.log(data);
       });
   }, []);
+
+
+
+
+  // DELETE BOOK IN PROGRESS
+  const deleteBookInProgress = (bookId, userId) => {
+
+      const uniqueBookId = {
+        bookId: bookId,
+        userId: userId,
+      }
+
+      const options = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(uniqueBookId),
+      };
+
+      fetch("http://localhost:4005/deleteBook", options)
+      .then((res) => res.json())
+      .then((data) => {
+        dispatch(setBooks(data.booksInProgress))
+        console.log(data)
+      })
+
+
+  }
+
 
 
   return (
@@ -324,7 +350,7 @@ const ProfilePage = () => {
             <div className="cover">
               <img src={book.cover} alt="cover" />
 
-              <div className="deleteButton">
+              <div className="deleteButton" onClick={() => deleteBookInProgress(book._id, book.userId)}>
                 <DeleteOutlineOutlinedIcon />
               </div>
 

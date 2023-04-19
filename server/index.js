@@ -189,6 +189,20 @@ app.post("/updateBookFinished/:id", async (req, res) => {
 })
 
 
+app.post("/deleteBook", async (req, res) => {
+    const { bookId, userId } = req.body;
+
+    const deleteBookById = await createBookSchema.deleteOne({
+        _id: bookId,
+    })
+
+    const notFinishedBooks = await createBookSchema.find(
+        { userId: userId, isFinished: false })
+
+
+    res.send({ok: "Book was deleted successfully", booksInProgress: notFinishedBooks})
+})
+
 
 
 app.listen(4005, () => {
