@@ -19,6 +19,7 @@ const OneBookCard = ({
     year,
     author,
     pages,
+    isFinished,
     bookId,
     userId,
     currentUserId
@@ -112,7 +113,7 @@ const OneBookCard = ({
         </span>
         <p>{pages}</p>
       </div>
-      <div className="finishedBook">
+      <div className={isFinished === false ? 'finishedBook' : 'd-none'}>
         {stateBookId === bookId
         ? <BookmarkOutlinedIcon onClick={() => bookFinished(bookId)} />
         : <BookmarkBorderOutlinedIcon onClick={() => bookFinished(bookId)}></BookmarkBorderOutlinedIcon>

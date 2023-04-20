@@ -5,11 +5,13 @@ import './style/_reset.scss';
 // Router
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import routes from './routes/routes';
+// Pages
 import RegisterPage from './pages/register/RegisterPage';
 import LoginPage from './pages/login/LoginPage';
 import HomePage from './pages/home/HomePage';
 import ProfilePage from './pages/profile/ProfilePage';
 import SingleBookPage from './pages/singleBook/SingleBookPage';
+import FinishedBooksPage from './pages/finisgedBooks/FinishedBooksPage';
 // Components
 import Navbar from './components/navBar/Navbar';
 // Redux
@@ -35,6 +37,7 @@ function App() {
         <Route path={routes.homePage} element={<HomePage />}></Route>
         <Route path={routes.profilePage} element={<ProfilePage />}></Route>
         <Route path={routes.singleBookPage} element={<SingleBookPage />}></Route>
+        <Route path={routes.finishedBooks} element={<FinishedBooksPage/>}></Route>
       </Routes>
       
       </div>

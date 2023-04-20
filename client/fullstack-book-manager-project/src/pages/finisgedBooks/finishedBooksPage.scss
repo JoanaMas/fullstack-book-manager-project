@@ -1,0 +1,7 @@
+@import "../../style/variables";
+@import "../../style/style";
+
+.finishedBooksContainer {
+    display: flex;
+    flex-wrap: wrap;
+}

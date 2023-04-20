@@ -13,6 +13,7 @@ import ProfilePictureUploadForm from "../../components/ProfilePictureUploadForm/
 // Icons
 import ModeEditOutlinedIcon from "@mui/icons-material/ModeEditOutlined";
 import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
+import ArrowCircleRightOutlinedIcon from '@mui/icons-material/ArrowCircleRightOutlined';
 // Redux
 import { useSelector, useDispatch } from "react-redux";
 import { setCurrentUser } from "../../redux/user";
@@ -35,7 +36,7 @@ const ProfilePage = () => {
   const { id } = useParams();
  
   // DISPLAYED CURRENT USER IN PROFILE
-
+  
   useEffect(() => {
     fetch("http://localhost:4005/userProfile/" + id)
       .then((res) => res.json())
@@ -68,43 +69,6 @@ const ProfilePage = () => {
 
 
 
-
-
-  // USER PROFILE PICTURE UPDATE
-  const urlRef = useRef();
-  const urlValidationRegex =
-    /(http[s]*:\/\/)([a-z\-_0-9\/.]+)\.([a-z.]{2,3})\/([a-z0-9\-_\/._~:?#\[\]@!$&'()*+,;=%]*)([a-z0-9]+\.)(jpg|jpeg|png)/i;
-
-  const handleProfilePictureUpload = () => {
-    const url = {
-      userId: id,
-      imageUrl: urlRef.current.value,
-    };
-
-    const validUrl = urlValidationRegex.test(url.imageUrl);
-
-    // SENDING DATA TO BACK-END
-    const options = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(url),
-    };
-
-    fetch("http://localhost:4005/profileImageUpload", options)
-      .then((res) => res.json())
-      .then((data) => {
-        if (validUrl) {
-          dispatch(setCurrentUser(data.updatedUser));
-          setOpenPictureUpload(false);
-        } else {
-          dispatch(changeErrorMessage("Please enter valid URL address."));
-        }
-      });
-  };
-
-
   // GET BOOKS BY USER ID THAT ARE IN PROGRESS OF READING
   useEffect(() => {
     fetch("http://localhost:4005/getBooksInProgress/" + id)
@@ -116,9 +80,11 @@ const ProfilePage = () => {
   }, []);
 
 
+
   return (
     // USER BOARD
     <div className="profileContainer">
+
       <div className="userProfileContainer">
         <div className="image">
           <img src={currentUser?.profilePicture} />
@@ -141,6 +107,7 @@ const ProfilePage = () => {
           </div>
         </div>
       </div>
+
 
       {/* PROFILE PICTURE UPLOAD */}
         <ProfilePictureUploadForm
@@ -184,6 +151,7 @@ const ProfilePage = () => {
           year={book.year}
           author={book.author}
           pages={book.pages}
+          isFinished={book.isFinished}
           bookId={book._id}
           userId={book.userId}
           currentUserId={id}
@@ -192,14 +160,23 @@ const ProfilePage = () => {
 
         </div>
       </div>
+
+
+      {/* LINK TO FINISHED BOOKS */}
+      <div className="bookLibraryContainer">
+        <h1>Explore books you have already finished!</h1>
+        <div className="arrowRight" onClick={() => navigate("/book-library/" + id)}><ArrowCircleRightOutlinedIcon /></div>
+      </div>
+
     </div>
   );
 };
 
 export default ProfilePage;
 
-// FAKE DATA
 
+
+// FAKE DATA
 const user = {
   id: "myId",
   name: "Joana",

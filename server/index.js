@@ -204,6 +204,17 @@ app.post("/deleteBook", async (req, res) => {
 })
 
 
+app.get("/getFinishedBooks/:id", async (req, res) => {
+    const { id } = req.params;
+
+    const finishedBooks = await createBookSchema.find({
+        userId: id, isFinished: true
+    })
+
+    res.send({ok: "ok", finishedBooks: finishedBooks})
+})
+
+
 
 app.listen(4005, () => {
     console.log("Api working!")

@@ -4,6 +4,7 @@ const routes = {
     homePage: '/',
     profilePage: '/profile/:id',
     singleBookPage: '/single-book-page/:id',
+    finishedBooks: '/book-library/:id',
 };
 
 export default routes;

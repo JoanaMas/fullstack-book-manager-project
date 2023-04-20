@@ -68,4 +68,23 @@
       }
     }
 
+    .finishedBook {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: $g-1;
+      margin-top: $m-1;
+    
+      .checkbox {
+        width: 100px;
+        width: 10px;
+      }
+    
+      label {
+        color: $dark-green;
+        font-size: $font-1;
+      }
+    
+      }
+
   }
