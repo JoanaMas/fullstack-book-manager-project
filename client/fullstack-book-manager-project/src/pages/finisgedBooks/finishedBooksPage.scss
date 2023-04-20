@@ -1,7 +1,32 @@
 @import "../../style/variables";
 @import "../../style/style";
 
+.title {
+  padding: $p-6;
+  color: $dark-green;
+}
+
 .finishedBooksContainer {
-    display: flex;
-    flex-wrap: wrap;
+  width: 100%;
+  display: flex;
+  gap: $g-4;
+  flex-wrap: wrap;
+  min-height: auto;
+
+  .deleteFinishedBookIcon {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    top: 30px;
+    right: 30px;
+    background-color: $orange;
+    border-radius: 50%;
+    text-align: center;
+    padding-top: $p-1;
+    color: $white;
+
+    * {
+      font-size: $p-4;
+    }
+  }
 }

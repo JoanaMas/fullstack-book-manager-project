@@ -3,7 +3,7 @@ const routes = {
     loginPage: '/login',
     homePage: '/',
     profilePage: '/profile/:id',
-    singleBookPage: '/single-book-page/:id',
+    singleBookPage: '/single-book-page/:bookId',
     finishedBooks: '/book-library/:id',
 };
 

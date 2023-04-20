@@ -4,10 +4,12 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 // Redux
 import { useSelector, useDispatch } from "react-redux";
-import { setFinishedBooks, setTotalPagesRead } from "../../redux/books";
 import { setCurrentUser } from "../../redux/user";
+import { setFinishedBooks } from "../../redux/books";
 // Components
 import OneBookCard from "../../components/oneBookCard/OneBookCard";
+// Icons
+import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 
 const FinishedBooksPage = () => {
   const { id } = useParams();
@@ -19,18 +21,7 @@ const FinishedBooksPage = () => {
     (store) => store.books.value.finishedBooks
   );
 
-  // COUNT TOTAL PAGES READ
-  const pagesReadArray = completedBooks.map(({pages}) => {
-    return pages
-  })
-
-  const totalOfPagesRead = pagesReadArray.reduce((sum, acc) => {
-    return sum + acc
-  }, 0)
-
-  dispatch(setTotalPagesRead(totalOfPagesRead));
-
-
+  const currentUser = useSelector((store) => store.users.value.currentUser);
 
   // GET CURRENT USER
   useEffect(() => {
@@ -48,32 +39,68 @@ const FinishedBooksPage = () => {
 
   // GET FINISHED BOOKS
   useEffect(() => {
-      fetch("http://localhost:4005/getFinishedBooks/" + id)
-        .then((res) => res.json())
-        .then((data) => {
-          dispatch(setFinishedBooks(data.finishedBooks));
-          console.log(data);
-        });
-  }, []);
+    fetch("http://localhost:4005/getFinishedBooks/" + id)
+      .then((res) => res.json())
+      .then((data) => {
+        dispatch(setFinishedBooks(data.finishedBooks));
+        // console.log(data);
+      });
+  }, [currentUser]);
+
+
+  // DELETE FINISHED BOOK
+  const deleteFinishedBook = (bookId, userId) => {
+    
+    const uniqueBookId = {
+      bookId: bookId,
+      userId: userId,
+    }
+
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(uniqueBookId),
+    };
+
+    fetch("http://localhost:4005/deleteFinishedBook", options)
+      .then((res) => res.json())
+      .then((data) => {
+        dispatch(setFinishedBooks(data.finishedBooks));
+        console.log(data);
+      });
+  };
+
+
+
 
   return (
-    <div className="bookLibraryContainer">
-      <div className="finishedBooksContainer">
-        {completedBooks.map((book, i) => (
-          <OneBookCard
-            key={i}
-            cover={book.cover}
-            title={book.title}
-            year={book.year}
-            author={book.author}
-            pages={book.pages}
-            bookId={book._id}
-            userId={book.userId}
-            currentUserId={id}
-          />
-        ))}
+    <>
+      <div className="title">
+        <h1>Book Library</h1>
       </div>
-    </div>
+      <div className="bookLibraryContainer">
+        <div className="finishedBooksContainer">
+          {completedBooks.map((book, i) => (
+    
+              <OneBookCard
+                key={i}
+                cover={book.cover}
+                title={book.title}
+                year={book.year}
+                author={book.author}
+                pages={book.pages}
+                bookId={book._id}
+                userId={book.userId}
+                currentUserId={id}
+              >
+                <div className="deleteFinishedBookIcon" onClick={() => deleteFinishedBook(book._id, book.userId)}><DeleteOutlineOutlinedIcon/></div>
+              </OneBookCard>
+          ))}
+        </div>
+      </div>
+    </>
   );
 };
 

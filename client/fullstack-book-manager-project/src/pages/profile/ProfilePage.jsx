@@ -17,25 +17,33 @@ import ArrowCircleRightOutlinedIcon from '@mui/icons-material/ArrowCircleRightOu
 // Redux
 import { useSelector, useDispatch } from "react-redux";
 import { setCurrentUser } from "../../redux/user";
-import { changeErrorMessage } from "../../redux/error";
-import { setBooks } from "../../redux/books";
+import { setBooks, setFinishedBooks } from "../../redux/books";
 import { setOpenCreateBookForm, setOpenPictureUpload } from "../../redux/onClickActions";
 
 const ProfilePage = () => {
 
   const currentUser = useSelector((store) => store.users.value.currentUser);
-  const error = useSelector((store) => store.error.value.error);
   const booksInProgress = useSelector((store) => store.books.value.books);
   const handleOpenCreateBookForm = useSelector((store) => store.onClickActions.value.openCreateBookForm);
   const handleOpenPictureUploadForm = useSelector((store) => store.onClickActions.value.openPictureUpload);
-  const totalPagesRead = useSelector((store) => store.books.value.totalPagesRead);
   const completedBooks = useSelector((store) => store.books.value.finishedBooks);
-  
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const { id } = useParams();
+
+    // COUNT TOTAL PAGES READ
+    const pagesReadArray = completedBooks.map(({pages}) => {
+      return pages
+    })
+  
+    const totalOfPagesRead = pagesReadArray.reduce((sum, acc) => {
+      return sum + acc
+    }, 0)
+
+  
+
  
   // DISPLAYED CURRENT USER IN PROFILE
 
@@ -67,7 +75,18 @@ const ProfilePage = () => {
       .then((res) => res.json())
       .then((data) => {
         dispatch(setBooks(data.booksInProgress));
-        console.log(data);
+      });
+  }, []);
+
+
+  
+   // GET FINISHED BOOKS - data fetched to see total pages read
+   useEffect(() => {
+    fetch("http://localhost:4005/getFinishedBooks/" + id)
+      .then((res) => res.json())
+      .then((data) => {
+        dispatch(setFinishedBooks(data.finishedBooks));
+        // console.log(data);
       });
   }, []);
 
@@ -94,7 +113,7 @@ const ProfilePage = () => {
               Books finished: <span>{completedBooks.length}</span>
             </h5>
             <h5>
-              Total pages read: <span>{totalPagesRead}</span>
+              Total pages read: <span>{totalOfPagesRead}</span>
             </h5>
           </div>
         </div>
