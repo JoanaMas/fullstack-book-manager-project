@@ -28,6 +28,8 @@ const ProfilePage = () => {
   const booksInProgress = useSelector((store) => store.books.value.books);
   const handleOpenCreateBookForm = useSelector((store) => store.onClickActions.value.openCreateBookForm);
   const handleOpenPictureUploadForm = useSelector((store) => store.onClickActions.value.openPictureUpload);
+  const totalPagesRead = useSelector((store) => store.books.value.totalPagesRead);
+  const completedBooks = useSelector((store) => store.books.value.finishedBooks);
   
 
   const dispatch = useDispatch();
@@ -36,7 +38,7 @@ const ProfilePage = () => {
   const { id } = useParams();
  
   // DISPLAYED CURRENT USER IN PROFILE
-  
+
   useEffect(() => {
     fetch("http://localhost:4005/userProfile/" + id)
       .then((res) => res.json())
@@ -57,16 +59,6 @@ const ProfilePage = () => {
   const handleCreateBookFormOpen = () => {
     dispatch(setOpenCreateBookForm(!handleOpenCreateBookForm))
   };
-
-  // TOTAL BOOKS COUNT
-  const pages = finishedBooks.map((book) => {
-    return book.pages;
-  });
-
-  const totalOfPages = pages.reduce((sum, oneBookPages) => {
-    return sum + oneBookPages;
-  }, 0);
-
 
 
   // GET BOOKS BY USER ID THAT ARE IN PROGRESS OF READING
@@ -99,10 +91,10 @@ const ProfilePage = () => {
           </div>
           <div className="stats">
             <h5>
-              Books finished: <span>{finishedBooks.length}</span>
+              Books finished: <span>{completedBooks.length}</span>
             </h5>
             <h5>
-              Total pages read: <span>{totalOfPages}</span>
+              Total pages read: <span>{totalPagesRead}</span>
             </h5>
           </div>
         </div>
