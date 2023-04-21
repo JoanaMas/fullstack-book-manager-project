@@ -90,7 +90,7 @@ const OneBookCard = ({
   return (
     <div key={key} className="oneBook">
       <div className="cover">
-        <img src={cover} alt="cover" onClick={() => singleBookPage(bookId)} />
+        <img src={cover} alt="cover" onClick={() => singleBookPage(bookId, userId)} />
 
         <div
           className={isFinished === false ? "deleteButton" : "d-none"}

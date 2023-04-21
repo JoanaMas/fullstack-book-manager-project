@@ -6,10 +6,10 @@
   color: $dark-green;
 }
 
+
 .finishedBooksContainer {
   width: 100%;
   display: flex;
-  gap: $g-4;
   flex-wrap: wrap;
   min-height: auto;
 
@@ -18,7 +18,7 @@
     width: 60px;
     height: 60px;
     top: 30px;
-    right: 30px;
+    right: 45px;
     background-color: $orange;
     border-radius: 50%;
     text-align: center;

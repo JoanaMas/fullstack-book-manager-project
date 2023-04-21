@@ -1,0 +1,50 @@
+@import "../../style/variables";
+@import "../../style/style";
+
+.singleBook {
+    height: 100%;
+    width: 100%;
+    // border: 2px solid red;
+    background-color: $primary;
+    border-radius: 20px;
+    display: flex;
+
+    .bookImage {
+        width: 100%;
+        padding: $p-10;
+        flex: 1;
+
+        img {
+            width: 350px;
+            height: auto;
+            border-radius: 20px;
+        }
+    }
+
+    .bookContentContainer {
+        flex: 4;
+        padding: $p-10;
+
+        .bookContent {
+            width: 100%;
+            height: 100%;
+            background-color: $white;
+            border-radius: 10px;
+            padding: $p-6;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            color: $dark-green;
+
+            .heading {
+                h1 {
+                    font-size: 40pt;
+                    margin-top: $m-3;
+                }
+
+
+            }
+        }
+    }
+    
+}

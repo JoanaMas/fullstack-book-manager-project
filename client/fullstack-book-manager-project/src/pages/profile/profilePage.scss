@@ -4,7 +4,8 @@
 .profileContainer {
   display: flex;
   flex-direction: column;
-  gap: $g-4;
+  gap: $g-6;
+  margin: 50px 100px; 
 }
 
 .userProfileContainer {

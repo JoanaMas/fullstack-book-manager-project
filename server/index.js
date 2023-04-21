@@ -230,6 +230,22 @@ app.post("/deleteFinishedBook", async (req, res) => {
 })
 
 
+app.get("/singleBookPage/:bookId", async (req, res) => {
+    const { bookId } = req.params;
+    
+    const singleBook = await createBookSchema.findOne({
+        _id: bookId
+    })
+
+    const currentUser = await userSchema.findOne({
+        _id: singleBook.userId
+    })
+
+    res.send({ok: 'ok', book: singleBook, currentUser: currentUser})
+})
+
+
+
 
 app.listen(4005, () => {
     console.log("Api working!")
