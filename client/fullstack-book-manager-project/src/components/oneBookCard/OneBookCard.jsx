@@ -100,13 +100,13 @@ const OneBookCard = ({
         </div>
       </div>
       <div className="bookInfo">
-        <h5>
+        <h3>
           {title}, {year}
-        </h5>
+        </h3>
         <hr />
 
         <div className="author">
-          <h6>{author}</h6>
+          <h4>{author}</h4>
         </div>
         <div className="pages">
           <span>

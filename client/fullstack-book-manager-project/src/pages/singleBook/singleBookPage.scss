@@ -9,13 +9,17 @@
     border-radius: 20px;
     display: flex;
 
+    span {
+        color: $orange;
+    }
+
     .bookImage {
         width: 100%;
         padding: $p-10;
         flex: 1;
 
         img {
-            width: 350px;
+            width: 500px;
             height: auto;
             border-radius: 20px;
         }
@@ -35,16 +39,149 @@
             flex-direction: column;
             justify-content: space-between;
             color: $dark-green;
+    
+            
 
             .heading {
+                padding-bottom: $p-4;
+                border-bottom: 2px solid $primary;
+                display: flex;
+                justify-content: space-between;
                 h1 {
                     font-size: 40pt;
                     margin-top: $m-3;
+                    margin-bottom: 0;
                 }
 
+                h2 {
+                    font-size: 20pt;
+                }
 
+               
+                .writeNoteIcon * {
+                    font-size: 50pt;
+
+                }
+
+            }
+
+
+            .pages {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                gap: $g-3;
+                padding-bottom: $p-4;
+                border-bottom: 2px solid $primary;
+
+                * {
+                    font-size: $font-6;
+                }
+                
+                .pagesIcon {
+                    display: flex;
+                    gap: $g-2;
+                }
+
+            }
+
+
+
+            .bookStatus {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+
+                * {
+                    margin: 0;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    gap: $g-1;
+                }
             }
         }
     }
-    
+}
+
+
+.notesContainer {
+    min-height: 700px;
+    width: 100%;
+    background-color: $primary;
+    border-radius: 20px;
+    margin-top: $m-8;
+    padding: $p-6;
+    color: $dark-green;
+
+    h1 {
+        font-size: 50pt;
+        padding: $p-5 $p-8;
+    }
+
+
+    .notes {
+        width: 90%;
+        height: 1200px;
+        background-color: white;
+        border-radius: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: $p-6;
+
+
+        .displayNotes {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            padding: $p-8;
+            overflow: scroll;
+            flex: 1;
+            gap: $g-4;
+
+            .note {
+                width: 45%;
+                height: 400px;
+                overflow: scroll;
+                border: 10px solid $orange;
+                border-radius: 20px;
+                padding: $p-5;
+                font-size: $font-4;
+                position: relative;
+                display: flex;
+                justify-content: space-between;
+                
+                .actionIcons {
+                    display: flex;
+                    gap: $g-1;
+
+                    * {
+                        font-size: 30pt;
+                    }
+                }
+            }
+        }
+
+        .inputNoteContainer {
+            width: 100%;         
+            border-radius: 30px;
+            padding: $p-5;
+            display: flex;
+            justify-content: flex-end;
+            align-items: flex-end;
+            gap: $g-4;
+
+            textarea {
+                width: 100%;
+                height: 100px;
+                padding: $p-4;
+                outline: none;
+                border-radius: 20px;
+                font-size: 14pt;
+            }
+            
+        }
+    }
 }

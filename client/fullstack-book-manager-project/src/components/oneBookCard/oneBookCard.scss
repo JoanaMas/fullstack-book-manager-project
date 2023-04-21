@@ -50,12 +50,9 @@
     flex: 1;
     justify-content: flex-end;
 
-    h5 {
-      margin: $m-1 0;
-    }
-
-    h5,
-    h6 {
+    h3,
+    h4 {
+      margin: $m-2 0 $m-1 0;
       color: $dark-green;
       width: 100%;
       text-align: center;
