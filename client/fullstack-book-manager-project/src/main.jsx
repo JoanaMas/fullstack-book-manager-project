@@ -10,6 +10,7 @@ import userReducer from './redux/user';
 import errorReducer from './redux/error';
 import booksReducer from './redux/books';
 import actionsReducer from './redux/onClickActions';
+import bookNotesReducer from './redux/bookNotes';
 
 const store = configureStore({
   reducer: {
@@ -17,6 +18,7 @@ const store = configureStore({
     error: errorReducer,
     books: booksReducer,
     onClickActions: actionsReducer,
+    bookNotes: bookNotesReducer,
   },
 });
 

@@ -149,16 +149,19 @@
                 border-radius: 20px;
                 padding: $p-5;
                 font-size: $font-4;
-                position: relative;
-                display: flex;
                 justify-content: space-between;
+                display: flex;
                 
                 .actionIcons {
+                    width: 40%;
+                    height: 20px;
                     display: flex;
                     gap: $g-1;
 
+                                    
                     * {
                         font-size: 30pt;
+                        flex-basis: auto;
                     }
                 }
             }

@@ -15,8 +15,9 @@ mongoose.connect("mongodb+srv://joanamastianica:root2025@cluster0.l8vzeuj.mongod
 })
 
 // PROJECT SCHEMAS
-const userSchema = require("./schemas/userSchema")
-const createBookSchema = require("./schemas/createBookSchema")
+const userSchema = require("./schemas/userSchema");
+const createBookSchema = require("./schemas/createBookSchema");
+const createBookNoteSchema = require("./schemas/createBookNoteSchema");
 
 // TEST
 const createUser = async () => {
@@ -244,6 +245,45 @@ app.get("/singleBookPage/:bookId", async (req, res) => {
     res.send({ok: 'ok', book: singleBook, currentUser: currentUser})
 })
 
+
+app.post("/addBookNote", async (req, res) => {
+
+    const newBookNote = req.body;
+
+    const noteBookSchema = createBookNoteSchema({
+        bookId: newBookNote.bookId,
+        bookNote: newBookNote.bookNote,
+        userId: newBookNote.userId,
+    })
+
+    await noteBookSchema.save();
+
+    const allBookNotes = await createBookNoteSchema.find();
+
+
+    res.send({ ok: 'ok', allBookNotes: allBookNotes })
+})
+
+
+app.get("/getBookNotes", async (req, res) => {
+    
+    const allBookNotes = await createBookNoteSchema.find();
+
+    res.send({ok: 'ok', allBookNotes: allBookNotes})
+})
+
+
+app.post("/deleteBookNote", async (req, res) => {
+    const { bookNoteId } = req.body;
+
+    const deleteBook = await createBookNoteSchema.deleteOne({
+        _id: bookNoteId
+    })
+
+    const allBookNotes = await createBookNoteSchema.find();
+
+    res.send({ok: 'Book note was delete successfully', deletedBook: deleteBook, allBookNotes: allBookNotes})
+})
 
 
 
