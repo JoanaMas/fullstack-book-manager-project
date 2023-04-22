@@ -2,7 +2,7 @@ import React from "react";
 import "./singleBookPage.scss";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 // Components
 import ActionButton from "../../components/actionButton/ActionButton";
 // Redux
@@ -22,6 +22,9 @@ import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutl
 const SingleBookPage = () => {
   const { bookId } = useParams();
   const bookNoteRef = useRef();
+  const [openEditBookNote, setOpenEditBookNote] = useState(false);
+  const [noteValue, setNoteValue] = useState("");
+  const [noteId, setNoteId] = useState("");
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -68,7 +71,7 @@ const SingleBookPage = () => {
     .then((res) => res.json())
     .then((data) => {
       dispatch(setBookNotes(data.allBookNotes))
-      console.log(data);
+      // console.log(data);
     });
 }
 
@@ -77,7 +80,7 @@ useEffect(() => {
   .then((res) => res.json())
   .then((data) => {
     dispatch(setBookNotes(data.allBookNotes))
-    console.log(data)
+    // console.log(data)
   })
 }, [])
 
@@ -103,11 +106,47 @@ const deleteBookNote = (noteId) => {
   .then((res) => res.json())
   .then((data) => {
     dispatch(setBookNotes(data.allBookNotes))
-    console.log(data);
+    // console.log(data);
   });
 
 }
 
+
+// EDIT BOOK NOTE
+const editBookNote = (bookNote, noteId) => {
+  setNoteValue(bookNote)
+  setOpenEditBookNote(!openEditBookNote)
+  setNoteId(noteId)
+}
+
+const handleNoteEditChange = (event) => {
+  setNoteValue(event.target.value)
+}
+
+const updateBookNote = () => {
+
+  const updatedBookNote = {
+    bookNote: bookNoteRef.current.value,
+    noteId: noteId,
+  }
+
+  const options = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(updatedBookNote),
+  };
+
+
+  fetch("http://localhost:4005/updateBookNote", options)
+  .then((res) => res.json())
+  .then((data) => {
+    dispatch(setBookNotes(data.allBookNotes))
+    // console.log(data);
+  });
+
+}
 
   return (
     <div className="grid-center">
@@ -183,7 +222,7 @@ const deleteBookNote = (noteId) => {
               {note.bookNote}
               <div className="actionIcons">
                 <div>
-                  <ModeEditOutlineOutlinedIcon />
+                  <ModeEditOutlineOutlinedIcon onClick={() => editBookNote(note.bookNote, note._id)} />
                 </div>
                 <div onClick={() => deleteBookNote(note._id)}>
                   <DeleteOutlineOutlinedIcon />
@@ -202,8 +241,14 @@ const deleteBookNote = (noteId) => {
               rows="10"
               placeholder="Enter book note..."
               ref={bookNoteRef}
+              value={noteValue}
+              onChange={handleNoteEditChange}
             ></textarea>
-            <ActionButton onClick={addBookNote}>Save</ActionButton>
+            {openEditBookNote 
+            ? <ActionButton onClick={updateBookNote}>Update</ActionButton>
+            : <ActionButton onClick={addBookNote}>Save</ActionButton>
+          }
+            
           </div>
           {error}
         </div>

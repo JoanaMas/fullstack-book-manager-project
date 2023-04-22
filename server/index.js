@@ -286,6 +286,20 @@ app.post("/deleteBookNote", async (req, res) => {
 })
 
 
+app.post("/updateBookNote", async (req, res) => {
+    const { bookNote, noteId } = req.body;
+    
+    const updateBookNote = await createBookNoteSchema.updateOne(
+        { _id: noteId },
+        { $set: { bookNote: bookNote }},
+    )
+
+    const allBookNotes = await createBookNoteSchema.find();
+
+    res.send({ok: 'ok', updatedNote: updateBookNote, allBookNotes: allBookNotes})
+})
+
+
 
 app.listen(4005, () => {
     console.log("Api working!")

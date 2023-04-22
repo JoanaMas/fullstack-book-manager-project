@@ -178,7 +178,7 @@
 
             textarea {
                 width: 100%;
-                height: 100px;
+                height: 200px;
                 padding: $p-4;
                 outline: none;
                 border-radius: 20px;
@@ -187,4 +187,11 @@
             
         }
     }
+}
+
+
+
+.uploadInput {
+    width: 100%;
+    height: 100%;
 }
