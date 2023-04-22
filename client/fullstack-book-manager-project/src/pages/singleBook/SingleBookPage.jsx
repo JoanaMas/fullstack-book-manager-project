@@ -76,7 +76,7 @@ const SingleBookPage = () => {
 }
 
 useEffect(() => {
-  fetch("http://localhost:4005/getBookNotes")
+  fetch("http://localhost:4005/getBookNotes/" + bookId)
   .then((res) => res.json())
   .then((data) => {
     dispatch(setBookNotes(data.allBookNotes))
@@ -91,7 +91,8 @@ useEffect(() => {
 const deleteBookNote = (noteId) => {
   
   const bookNoteId = {
-    bookNoteId: noteId
+    bookNoteId: noteId,
+    bookId: bookId,
   };
 
   const options = {
@@ -106,11 +107,10 @@ const deleteBookNote = (noteId) => {
   .then((res) => res.json())
   .then((data) => {
     dispatch(setBookNotes(data.allBookNotes))
-    // console.log(data);
+    console.log(data);
   });
 
 }
-
 
 // EDIT BOOK NOTE
 const editBookNote = (bookNote, noteId) => {
@@ -128,6 +128,7 @@ const updateBookNote = () => {
   const updatedBookNote = {
     bookNote: bookNoteRef.current.value,
     noteId: noteId,
+    bookId: bookId,
   }
 
   const options = {

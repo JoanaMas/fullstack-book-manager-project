@@ -2,25 +2,31 @@
 
 .card {
     flex: 1;
-    height: inherit;
-    background-color: $light-brown;
-    border-radius: 10%;
+    height: 600px;
+    background-color: $primary;
+    border-radius: 30px;
     display: flex;
     flex-direction: column;
     gap: $g-5;
-    padding-left: $p-4;
-    border: 10px solid $primary;
+    padding-left: $p-6;
+    border: 10px solid $orange;
+
 
     h5 {
-        margin-top: $m-5;
-        color: $primary;
+        margin: $m-5 $m-5;
+        color: $dark-green;
         letter-spacing: 3px;
     }
 
     h1 {
-        width: 60%;
+        width: 80%;
         font-size: $font-7;
-        color: $white;
+        color: $dark-ligther-brown;
+        padding-left: $p-2;
+
+        * {
+            font-size: 30pt;
+        }
     }
     
     p {

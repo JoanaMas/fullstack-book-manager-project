@@ -258,45 +258,47 @@ app.post("/addBookNote", async (req, res) => {
 
     await noteBookSchema.save();
 
-    const allBookNotes = await createBookNoteSchema.find();
-
+    const allBookNotes = await createBookNoteSchema.find({ bookId: newBookNote.bookId });
 
     res.send({ ok: 'ok', allBookNotes: allBookNotes })
 })
 
 
-app.get("/getBookNotes", async (req, res) => {
+app.get("/getBookNotes/:bookId", async (req, res) => {
+    const { bookId } = req.params;
     
-    const allBookNotes = await createBookNoteSchema.find();
+    const allBookNotes = await createBookNoteSchema.find({bookId: bookId});
 
     res.send({ok: 'ok', allBookNotes: allBookNotes})
 })
 
 
 app.post("/deleteBookNote", async (req, res) => {
-    const { bookNoteId } = req.body;
+    const { bookNoteId, bookId } = req.body;
 
     const deleteBook = await createBookNoteSchema.deleteOne({
         _id: bookNoteId
     })
 
-    const allBookNotes = await createBookNoteSchema.find();
+    const allBookNotes = await createBookNoteSchema.find({ bookId: bookId });
 
     res.send({ok: 'Book note was delete successfully', deletedBook: deleteBook, allBookNotes: allBookNotes})
 })
 
 
 app.post("/updateBookNote", async (req, res) => {
-    const { bookNote, noteId } = req.body;
+    const { bookNote, noteId, bookId } = req.body;
+    console.log(bookId)
     
     const updateBookNote = await createBookNoteSchema.updateOne(
         { _id: noteId },
         { $set: { bookNote: bookNote }},
     )
 
-    const allBookNotes = await createBookNoteSchema.find();
+    const allBookNotes = await createBookNoteSchema.find({ bookId: bookId });
+    console.log(allBookNotes)
 
-    res.send({ok: 'ok', updatedNote: updateBookNote, allBookNotes: allBookNotes})
+    res.send({ok: 'ok', updatedBook: updateBookNote, allBookNotes: allBookNotes})
 })
 
 

@@ -14,66 +14,50 @@ import routes from "../../routes/routes";
 // Components
 import ActionButton from "../../components/actionButton/ActionButton";
 import Header from "../../components/header/Header";
+// Icons
+import RadioButtonUncheckedOutlinedIcon from "@mui/icons-material/RadioButtonUncheckedOutlined";
 
 const HomePage = () => {
-  const [openFeatures, setOpenFeatures] = useState(false);
   const navigate = useNavigate();
-
-  const handleClick = () => {
-    setOpenFeatures(!openFeatures);
-  };
 
   return (
     <div className="homePage">
       <div>
-        
         <Header title={"Change your book game - play smart with"}>
-        <ActionButton onClick={() => navigate(routes.registerPage)}>Sign Up</ActionButton>
+          <ActionButton onClick={() => navigate(routes.registerPage)}>
+            Sign Up
+          </ActionButton>
         </Header>
 
         <div className="content">
           <HomePageCard>
             <h5>NEW BOOK MANAGER</h5>
-            <h1>New way to manage your favorite reads.</h1>
+            <h1 className="firstCardTitle">New way to manage your favorite reads.</h1>
           </HomePageCard>
 
-          <HomePageCard backgroundColor={"featuresCardColor"}>
+          <HomePageCard>
             <h5>EXPLORE NEW FEATURES</h5>
 
-            <div class={openFeatures ? "none" : "progress"}>
-              <div class="color"></div>
-            </div>
-
-            <div className={openFeatures ? "features" : "none"}>
-              <h4>Store your books.</h4>
-              <h4>Track reading progress.</h4>
-              <h4>Write notes for each book!</h4>
-            </div>
-
-            <div className="exploreIcon">
-              <p>Unlock features</p>
-              <TravelExploreIcon
-                onClick={handleClick}
-                style={{ fontSize: "50pt", color: "white" }}
-              />
-            </div>
+            <h1>Manage books you are reading.</h1>
+            <h1>Take favorite notes from your read.</h1>
+            <h1>Create your book library.</h1>
           </HomePageCard>
 
-          <HomePageCard backgroundColor={"socialCardColor"}>
+          <HomePageCard>
             <h5>HAVE SOME QUESTIONS?</h5>
-              <h1>Contact Us!</h1>
             <div className="socialIcons">
-              <div className="icon">
+              <h1 className="contactUsTitle">Contact Us!</h1>
+              <div className="icon email">
                 <a href="mailto:bookSmart@gmail.com">
                   <MailOutlineIcon fontSize="large" />
                 </a>
               </div>
-              <div className="icon">
+              <div className="icon phone">
                 <a href="tel:860-923-619">
                   <PhoneAndroidIcon fontSize="large" />
                 </a>
               </div>
-              <div className="icon">
+              <div className="icon facebook">
                 <a href="https://www.facebook.com/">
                   <FacebookOutlinedIcon fontSize="large" />
                 </a>

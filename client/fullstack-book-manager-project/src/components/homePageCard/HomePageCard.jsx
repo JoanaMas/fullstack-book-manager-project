@@ -1,9 +1,9 @@
 import React from "react";
 import './homePageCard.scss'
 
-const HomePageCard = ({children, backgroundColor}) => {
+const HomePageCard = ({children}) => {
   return (
-    <div className={`card ${backgroundColor}`}>
+    <div className={`card`}>
       {children}
     </div>
   );
