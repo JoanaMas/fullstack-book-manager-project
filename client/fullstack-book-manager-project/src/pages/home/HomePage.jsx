@@ -14,8 +14,6 @@ import routes from "../../routes/routes";
 // Components
 import ActionButton from "../../components/actionButton/ActionButton";
 import Header from "../../components/header/Header";
-// Icons
-import RadioButtonUncheckedOutlinedIcon from "@mui/icons-material/RadioButtonUncheckedOutlined";
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -31,12 +29,12 @@ const HomePage = () => {
 
         <div className="content">
           <HomePageCard>
-            <h5>NEW BOOK MANAGER</h5>
+            <h3>NEW BOOK MANAGER</h3>
             <h1 className="firstCardTitle">New way to manage your favorite reads.</h1>
           </HomePageCard>
 
           <HomePageCard>
-            <h5>EXPLORE NEW FEATURES</h5>
+            <h3>EXPLORE NEW FEATURES</h3>
 
             <h1>Manage books you are reading.</h1>
             <h1>Take favorite notes from your read.</h1>
@@ -44,7 +42,7 @@ const HomePage = () => {
           </HomePageCard>
 
           <HomePageCard>
-            <h5>HAVE SOME QUESTIONS?</h5>
+            <h3>HAVE SOME QUESTIONS?</h3>
             <div className="socialIcons">
               <h1 className="contactUsTitle">Contact Us!</h1>
               <div className="icon email">

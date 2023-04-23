@@ -12,8 +12,8 @@
     border: 10px solid $orange;
 
 
-    h5 {
-        margin: $m-5 $m-5;
+    h3 {
+        margin: $m-6 0 $m-2 0;
         color: $dark-green;
         letter-spacing: 3px;
     }
@@ -22,15 +22,9 @@
         width: 80%;
         font-size: $font-7;
         color: $dark-ligther-brown;
-        padding-left: $p-2;
 
         * {
             font-size: 30pt;
         }
     }
-    
-    p {
-        color: $white;
-    }
-
 }

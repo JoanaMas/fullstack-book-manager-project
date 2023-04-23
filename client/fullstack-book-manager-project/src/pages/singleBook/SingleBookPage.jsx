@@ -18,6 +18,7 @@ import KeyboardArrowRightOutlinedIcon from "@mui/icons-material/KeyboardArrowRig
 import EditNoteOutlinedIcon from "@mui/icons-material/EditNoteOutlined";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
+import EditOffOutlinedIcon from '@mui/icons-material/EditOffOutlined';
 
 const SingleBookPage = () => {
   const { bookId } = useParams();
@@ -144,7 +145,8 @@ const updateBookNote = () => {
   .then((res) => res.json())
   .then((data) => {
     dispatch(setBookNotes(data.allBookNotes))
-    // console.log(data);
+    setOpenEditBookNote(!openEditBookNote)
+    setNoteValue("")
   });
 
 }
@@ -167,7 +169,7 @@ const updateBookNote = () => {
               </div>
 
               <span className="writeNoteIcon">
-                <EditNoteOutlinedIcon />
+                {/* {openEditBookNote ? <EditOffOutlinedIcon /> : <EditNoteOutlinedIcon />} */}
               </span>
             </div>
 
@@ -215,15 +217,22 @@ const updateBookNote = () => {
           <h1>Book notes</h1>
 
           {/* Notes */}
-          <div className="displayNotes">
+          <div className={ bookNotes.length !== 0 && "displayNotes"}>
 
             {bookNotes.map((note, i) => 
             
             <div key={i} className="note">
-              {note.bookNote}
+              <div className="text">
+              <p>{note.bookNote}</p>
+              </div>
               <div className="actionIcons">
                 <div>
-                  <ModeEditOutlineOutlinedIcon onClick={() => editBookNote(note.bookNote, note._id)} />
+                  {openEditBookNote 
+                  
+                  ? <EditOffOutlinedIcon onClick={() => editBookNote(note.bookNote, note._id)} /> 
+                  : <ModeEditOutlineOutlinedIcon onClick={() => editBookNote(note.bookNote, note._id)} />
+        
+                  }
                 </div>
                 <div onClick={() => deleteBookNote(note._id)}>
                   <DeleteOutlineOutlinedIcon />
@@ -238,7 +247,7 @@ const updateBookNote = () => {
             <textarea
               name="bookNote"
               id="bookNote"
-              cols="150"
+              cols="10"
               rows="10"
               placeholder="Enter book note..."
               ref={bookNoteRef}
