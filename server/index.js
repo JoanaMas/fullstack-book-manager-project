@@ -2,19 +2,26 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const mongoose = require("mongoose");
+const router = require("./router/main");
 
-app.use(cors());
-app.use(express.json());
 
 // CONNECTION TO DATABASE
 mongoose.connect("mongodb+srv://joanamastianica:root2025@cluster0.l8vzeuj.mongodb.net/?retryWrites=true&w=majority")
 .then(() => {
-  console.log("CONNECT SUCCESS")
+    console.log("CONNECT SUCCESS")
 }).catch((err) => {
-  console.log(err)
+    console.log(err)
 })
 
-// PROJECT SCHEMAS
+
+app.use(cors());
+app.use(express.json());
+app.use("/", router)
+
+
+
+
+// ALL PROJECT SCHEMAS
 const userSchema = require("./schemas/userSchema");
 const createBookSchema = require("./schemas/createBookSchema");
 const createBookNoteSchema = require("./schemas/createBookNoteSchema");
@@ -62,244 +69,6 @@ const findBooksInProgress = async () => {
 }
 
 // findBooksInProgress()
-
-
-
-
-
-// REGISTER USER
-app.post("/register", async (req, res) => {
-    const newUser = req.body;
-    console.log(newUser);
-
-    const registeredUser = new userSchema({
-        firstName: newUser.name,
-        email: newUser.email,
-        password: newUser.password,
-        profilePicture: newUser.profilePicture,
-    })
-
-    // CHECKING IF USER ALREADY EXIST IN DATABASE WITH THE SAME EMAIL
-    const findUserByEmail = await userSchema.findOne({ email: newUser.email });
-
-    if(findUserByEmail) {
-        return res.status(409).send({ error: "User with same email already exists." });
-    } else {
-        await registeredUser.save()
-        res.status(201).send({ ok: "User registration successful." })
-    }
-
-})
-
-
-// LOGIN USER
-app.post("/login", async (req, res) => {
-    const user = req.body;
-    // console.log(user);
-
-    const registeredUser = await userSchema.findOne({
-        email: user.email,
-        password: user.password,
-    })
-
-    if(registeredUser) {
-        return res.status(202).send({ success: "User successfully logged in.", user: registeredUser })
-    } else {
-        res.status(409).send({ error: "User was not found." })
-    }
-})
-
-app.get("/userProfile/:id", async (req, res) => {
-    const { id } = req.params;
-
-    const registeredUser = await userSchema.findOne({
-        _id: id
-    })
-
-  
-    res.send({registeredUser})
-})
-
-
-app.post("/profileImageUpload", async (req, res) => {
-    const { imageUrl, userId } = req.body;
-
-    const updateUserProfilePicture = await userSchema.updateOne
-    ({ _id: userId },
-    { $set: { profilePicture: imageUrl} })
-
-    const findUserWithUpdatedPicture = await userSchema.findOne({
-        _id: userId
-    })
-
-    res.send({ ok: "ok", updatedUser: findUserWithUpdatedPicture })
-})
-
-
-app.post("/createBook/:id", async (req, res) => {
-    const { id } = req.params;
-
-    const book = req.body;
-
-    const newBook = new createBookSchema({
-        author: book.author,
-        title: book.title,
-        pages: book.pages,
-        year: book.year,
-        cover: book.cover,
-        isFinished: book.isFinished,
-        userId: book.userId,
-    })
-
-    await newBook.save()
-
-    const allCreatedBooks = await createBookSchema.find(
-        { userId: id, isFinished: false })
-
-    res.send({ok: 'Book created successfully', allBooks: allCreatedBooks})
-})
-
-
-
-app.get("/getBooksInProgress/:id", async (req, res) => {
-    const { id } = req.params;
-
-    const notFinishedBooks = await createBookSchema.find(
-        { userId: id, isFinished: false })
-
-    res.send({ok: 'ok', booksInProgress: notFinishedBooks})
-
-})
-
-
-app.post("/updateBookFinished/:id", async (req, res) => {
-    const { id } = req.params;
-
-    const { finished, bookId } = req.body;
-
-    const bookIsFinishedUpdate = await createBookSchema.updateOne(
-        { _id: bookId },
-        { $set: { isFinished: finished }}
-    )
-
-    const notFinishedBooks = await createBookSchema.find(
-        { userId: id, isFinished: false })
-
-    
-    res.send({ok: "ok", booksInProgress: notFinishedBooks})
-})
-
-
-app.post("/deleteBook", async (req, res) => {
-    const { bookId, userId } = req.body;
-
-    const deleteBookById = await createBookSchema.deleteOne({
-        _id: bookId,
-    })
-
-    const notFinishedBooks = await createBookSchema.find(
-        { userId: userId, isFinished: false })
-
-
-    res.send({ok: "Book was deleted successfully", booksInProgress: notFinishedBooks})
-})
-
-
-app.get("/getFinishedBooks/:id", async (req, res) => {
-    const { id } = req.params;
-
-    const finishedBooks = await createBookSchema.find({
-        userId: id, isFinished: true
-    })
-
-    res.send({ok: "ok", finishedBooks: finishedBooks})
-})
-
-
-app.post("/deleteFinishedBook", async (req, res) => {
-    const { bookId, userId } = req.body;
-
-    const deleteBookById = await createBookSchema.deleteOne({
-        _id: bookId,
-    })
-
-    const finishedBooks = await createBookSchema.find({
-        userId: userId, isFinished: true
-    })
-
-    res.send({ok: "ok", finishedBooks: finishedBooks})
-})
-
-
-app.get("/singleBookPage/:bookId", async (req, res) => {
-    const { bookId } = req.params;
-    
-    const singleBook = await createBookSchema.findOne({
-        _id: bookId
-    })
-
-    const currentUser = await userSchema.findOne({
-        _id: singleBook.userId
-    })
-
-    res.send({ok: 'ok', book: singleBook, currentUser: currentUser})
-})
-
-
-app.post("/addBookNote", async (req, res) => {
-
-    const newBookNote = req.body;
-
-    const noteBookSchema = createBookNoteSchema({
-        bookId: newBookNote.bookId,
-        bookNote: newBookNote.bookNote,
-        userId: newBookNote.userId,
-    })
-
-    await noteBookSchema.save();
-
-    const allBookNotes = await createBookNoteSchema.find({ bookId: newBookNote.bookId });
-
-    res.send({ ok: 'ok', allBookNotes: allBookNotes })
-})
-
-
-app.get("/getBookNotes/:bookId", async (req, res) => {
-    const { bookId } = req.params;
-    
-    const allBookNotes = await createBookNoteSchema.find({bookId: bookId});
-
-    res.send({ok: 'ok', allBookNotes: allBookNotes})
-})
-
-
-app.post("/deleteBookNote", async (req, res) => {
-    const { bookNoteId, bookId } = req.body;
-
-    const deleteBook = await createBookNoteSchema.deleteOne({
-        _id: bookNoteId
-    })
-
-    const allBookNotes = await createBookNoteSchema.find({ bookId: bookId });
-
-    res.send({ok: 'Book note was delete successfully', deletedBook: deleteBook, allBookNotes: allBookNotes})
-})
-
-
-app.post("/updateBookNote", async (req, res) => {
-    const { bookNote, noteId, bookId } = req.body;
-    console.log(bookId)
-    
-    const updateBookNote = await createBookNoteSchema.updateOne(
-        { _id: noteId },
-        { $set: { bookNote: bookNote }},
-    )
-
-    const allBookNotes = await createBookNoteSchema.find({ bookId: bookId });
-    console.log(allBookNotes)
-
-    res.send({ok: 'ok', updatedBook: updateBookNote, allBookNotes: allBookNotes})
-})
 
 
 
