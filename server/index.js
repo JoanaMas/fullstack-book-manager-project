@@ -20,11 +20,11 @@ app.use("/", router)
 
 
 
-
 // ALL PROJECT SCHEMAS
 const userSchema = require("./schemas/userSchema");
 const createBookSchema = require("./schemas/createBookSchema");
 const createBookNoteSchema = require("./schemas/createBookNoteSchema");
+
 
 // TEST
 const createUser = async () => {

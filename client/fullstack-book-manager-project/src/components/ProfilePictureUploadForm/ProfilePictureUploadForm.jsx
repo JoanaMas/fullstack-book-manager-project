@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { setCurrentUser } from "../../redux/user";
 import { setOpenPictureUpload } from "../../redux/onClickActions";
 import { changeErrorMessage } from "../../redux/error";
+//Icons
+import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 
 const ProfilePictureUploadForm = ({
     handleOpenPictureUploadForm,
@@ -13,6 +15,7 @@ const ProfilePictureUploadForm = ({
 }) => {
   const dispatch = useDispatch();
   const error = useSelector((store) => store.error.value.error);
+
 
   // USER PROFILE PICTURE UPDATE
   const urlRef = useRef();
@@ -54,7 +57,10 @@ const ProfilePictureUploadForm = ({
         handleOpenPictureUploadForm ? "pictureUploadContainer" : "d-none"
       }
     >
+      <div className="closeIcon">
       <h3>Upload your picture</h3>
+      <div onClick={() => dispatch(setOpenPictureUpload(false))}><CloseOutlinedIcon fontSize="large" /></div>
+        </div>
       <input type="text" placeholder="Enter your picture URL..." ref={urlRef} />
       <button onClick={handleProfilePictureUpload}>Upload</button>
       {error}
