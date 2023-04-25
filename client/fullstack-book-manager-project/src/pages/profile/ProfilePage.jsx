@@ -33,6 +33,7 @@ const ProfilePage = () => {
 
   const { id } = useParams();
 
+
     // COUNT TOTAL PAGES READ
     const pagesReadArray = completedBooks.map(({pages}) => {
       return pages
@@ -46,7 +47,7 @@ const ProfilePage = () => {
 
  
   // DISPLAYED CURRENT USER IN PROFILE
-  
+
   useEffect(() => {
     fetch("http://localhost:4005/userProfile/" + id)
       .then((res) => res.json())

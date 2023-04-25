@@ -8,6 +8,7 @@ import { setCurrentUser } from "../../redux/user";
 import { setFinishedBooks } from "../../redux/books";
 // Components
 import OneBookCard from "../../components/oneBookCard/OneBookCard";
+import ActionButton from "../../components/actionButton/ActionButton";
 // Icons
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 
@@ -81,7 +82,13 @@ const FinishedBooksPage = () => {
         <h1>Book Library</h1>
       </div>
       <div className="bookLibraryContainer">
-        <div className="finishedBooksContainer">
+
+        {completedBooks.length === 0 
+        ? <div className="emptyLibraryTitle">
+          <h1>Your library is currently empty.</h1> 
+          <div className="booksInProgressBtn" onClick={() => navigate("/profile/" + currentUser._id)}><ActionButton>Explore books in progress</ActionButton></div>
+          </div>
+        : <div className="finishedBooksContainer">
           {completedBooks.map((book, i) => (
     
               <OneBookCard
@@ -99,6 +106,8 @@ const FinishedBooksPage = () => {
               </OneBookCard>
           ))}
         </div>
+        }
+
       </div>
     </>
   );
