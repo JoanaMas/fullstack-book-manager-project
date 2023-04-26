@@ -1,8 +1,8 @@
 import React from "react";
-import "./profilePage.scss";
-import { useState, useEffect, useRef } from "react";
+import styles from "./profilePage.module.scss";
+import {  useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { Link,useNavigate} from "react-router-dom";
 import routes from "../../routes/routes";
 // Components
 import Header from "../../components/header/Header";
@@ -20,18 +20,82 @@ import { setCurrentUser } from "../../redux/user";
 import { setBooks, setFinishedBooks } from "../../redux/books";
 import { setOpenCreateBookForm, setOpenPictureUpload } from "../../redux/onClickActions";
 
-const ProfilePage = () => {
 
+
+
+const useLoadUser =  (id) => {
+  const [status, setStatus] = React.useState("idle");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const currentUser = useSelector((store) => store.users.value.currentUser);
+
+const loadUser = async () => {
+  try{
+    setStatus('loading')
+    const response = await fetch(`http://localhost:4005/userProfile/${id}`)
+    const user = await response.json();
+    if (user.registeredUser) {
+      setStatus('done')
+      dispatch(setCurrentUser(user.registeredUser));
+    } else {
+      throw new Error("User type is invalid.. Probably..")
+    }
+  } catch (e) {
+    setStatus('error')
+    dispatch(setCurrentUser(null));
+    navigate(routes.homePage);
+  }
+}
+
+  useEffect( () => {
+    if(!currentUser){
+      loadUser(id)
+    }
+  }, [id]);
+
+  return (
+    {
+      currentUser,
+      status,
+    }
+  )
+}
+
+// Do the same thing using react query. No redux is necessary!!! :) To update data setQueriesData should be used. 
+// Using this hook in different components will not result in multiple API queries! 
+// You can think of this as as a redux slice/reducer and selector in one. 
+
+// const queryKeys = {
+//   user: (id) => ['user', id],
+// }
+
+// const useLoadUserQuery = (id) => {
+//  const { data: currentUser,status } = useQuery({
+//    queryKey: queryKeys.user(id),
+//    queryFn: fetch(`http://localhost:4005/userProfile/${id}`),
+//    select:(user)=> user.registeredUser,
+//    enabled: !!id
+//  })
+
+//  return {
+//    currentUser,
+//    status,
+//  }
+// }
+
+
+
+export const ProfilePage = () => {
+
+
   const booksInProgress = useSelector((store) => store.books.value.books);
   const handleOpenCreateBookForm = useSelector((store) => store.onClickActions.value.openCreateBookForm);
   const handleOpenPictureUploadForm = useSelector((store) => store.onClickActions.value.openPictureUpload);
   const completedBooks = useSelector((store) => store.books.value.finishedBooks);
-
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
   const { id } = useParams();
+  const dispatch = useDispatch();
+
+  const {status,currentUser} = useLoadUser(id)
 
 
     // COUNT TOTAL PAGES READ
@@ -48,18 +112,7 @@ const ProfilePage = () => {
  
   // DISPLAYED CURRENT USER IN PROFILE
 
-  useEffect(() => {
-    fetch("http://localhost:4005/userProfile/" + id)
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.registeredUser) {
-          dispatch(setCurrentUser(data.registeredUser));
-        } else {
-          dispatch(setCurrentUser(null));
-          navigate(routes.homePage);
-        }
-      });
-  }, []);
+  
 
   const handleUploadPhotoOpen = () => {
     dispatch(setOpenPictureUpload(!handleOpenPictureUploadForm))
@@ -91,25 +144,31 @@ const ProfilePage = () => {
       });
   }, []);
 
+  if(status === 'loading'){
+    return <section><h2>Loading....</h2></section>
+  }
 
+  if(status === 'error'){
+    return <section><h2>Whoa an error has occured..</h2></section>
+  }
 
   return (
     // USER BOARD
-    <div className="profileContainer">
+    <section className={styles.profileContainer}>
 
-      <div className="userProfileContainer">
-        <div className="image">
+      <div className={styles.userProfileContainer}>
+        <div className={styles.image}>
           <img src={currentUser?.profilePicture} />
-          <div className="editIcon" onClick={handleUploadPhotoOpen}>
+          <div className={styles.editIcon} onClick={handleUploadPhotoOpen}>
             <ModeEditOutlinedIcon />
           </div>
         </div>
 
-        <div className="userInfo">
+        <div className={styles.userInfo} >
           <div>
             <h3>{currentUser?.email} </h3>
           </div>
-          <div className="stats">
+          <div className={styles.stats}>
             <h5>
               Books finished: <span>{completedBooks.length}</span>
             </h5>
@@ -137,54 +196,48 @@ const ProfilePage = () => {
 
 
       {/* CREATE BOOK FORM */}
-      <div className={handleOpenCreateBookForm? "d-flex" : "d-none"}>
+      <section className={handleOpenCreateBookForm? "d-flex" : "d-none"}>
         <CreateBookForm 
         currentUserId={id}
         handleCreateBookFormOpen={handleCreateBookFormOpen}
         />
-      </div>
+      </section>
 
       {/* CURRENTLY READING */}
-      <div className="singleBookContainer">
-        <div className="addBook">
+      <section className={styles.singleBookContainer}>
+        <div className={styles.addBook}>
           <h3>Currently reading...</h3>
-          <div className="addIcon" onClick={handleCreateBookFormOpen}>
+          <div className={styles.addIcon} onClick={handleCreateBookFormOpen}>
             <AddCircleOutlineOutlinedIcon fontSize="large" />
           </div>
         </div>
-        <div className="booksInProgress">
+        <ul className={styles.booksInProgress}>
 
           {/* ONE BOOK */}
-          {booksInProgress.map((book, i) => 
-          <OneBookCard 
-          key={i}
-          cover={book.cover}
-          title={book.title}
-          year={book.year}
-          author={book.author}
-          pages={book.pages}
-          isFinished={book.isFinished}
-          bookId={book._id}
-          userId={book.userId}
+          {booksInProgress.map((book) => 
+        <li   key={book._id}>
+            <OneBookCard 
+     
+          book={book}
           currentUserId={id}
           />
+        </li>
           )}
 
-        </div>
-      </div>
+        </ul>
+      </section>
 
 
       {/* LINK TO FINISHED BOOKS */}
-      <div className="bookLibraryContainer">
+      <div className={styles.bookLibraryContainer}>
         <h1>Explore books you have already finished!</h1>
-        <div className="arrowRight" onClick={() => navigate("/book-library/" + id)}><ArrowCircleRightOutlinedIcon /></div>
+        <Link className={styles.arrowRight} to={`/book-library/${id}`} ><ArrowCircleRightOutlinedIcon /></Link>
       </div>
 
-    </div>
+    </section>
   );
 };
 
-export default ProfilePage;
 
 
 
