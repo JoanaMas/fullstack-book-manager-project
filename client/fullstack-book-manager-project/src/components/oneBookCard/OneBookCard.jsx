@@ -1,7 +1,7 @@
 import React from "react";
 import "./oneBookCard.scss";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 // Icons
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import AutoStoriesOutlinedIcon from "@mui/icons-material/AutoStoriesOutlined";
@@ -12,26 +12,25 @@ import { useDispatch } from "react-redux";
 import { setBooks } from "../../redux/books";
 
 const OneBookCard = ({
-  key,
-  cover,
-  title,
-  year,
-  author,
-  pages,
-  isFinished,
-  bookId,
-  userId,
-  currentUserId,
   children,
+  book,
 }) => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  
+  const { 
+    title,
+    year,
+    author,
+    pages,
+    isFinished,
+    _id:bookId,
+    userId,
+    currentUserId } = book
+
+ 
 
 
-  // NAVIGATE TO SINGLE BOOK PAGE
-  const singleBookPage = (bookId) => {
-    navigate("/single-book-page/" + bookId);
-  };
+
 
   // DELETE BOOK IN PROGRESS
   const deleteBookInProgress = (bookId, userId) => {
@@ -90,8 +89,9 @@ const OneBookCard = ({
   return (
     <div key={key} className="oneBook">
       <div className="cover">
+       <Link to={`/single-book-page/${bookId}`}>
         <img src={cover} alt="cover" onClick={() => singleBookPage(bookId, userId)} />
-
+       </Link>
         <div
           className={isFinished === false ? "deleteButton" : "d-none"}
           onClick={() => deleteBookInProgress(bookId, userId)}

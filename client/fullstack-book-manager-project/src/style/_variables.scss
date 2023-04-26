@@ -78,3 +78,12 @@ $sm: 576px;
 $md: 768px;
 $lg: 992px;
 $xl: 1200px;
+
+
+@mixin line-clamp($lineCount) {
+	white-space: normal;
+	display: -webkit-box;
+	-webkit-line-clamp: $lineCount;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
