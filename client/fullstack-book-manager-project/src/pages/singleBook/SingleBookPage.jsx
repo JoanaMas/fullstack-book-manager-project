@@ -1,5 +1,5 @@
 import React from "react";
-import "./singleBookPage.scss";
+import "./singleBookPage.modules.scss";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useRef, useState } from "react";

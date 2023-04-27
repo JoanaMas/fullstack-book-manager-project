@@ -1,5 +1,5 @@
 import React from "react";
-import "./profilePage.scss";
+import "./profilePage.modules.scss";
 import { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";

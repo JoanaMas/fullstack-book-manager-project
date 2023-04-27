@@ -1,5 +1,5 @@
 import React from "react";
-import "./navbar.scss";
+import "./navbar.modules.scss";
 import Logo from "../logo/Logo";
 import routes from "../../routes/routes";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";

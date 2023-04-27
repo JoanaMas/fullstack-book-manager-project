@@ -1,5 +1,5 @@
 import React from "react";
-import "./actionButton.scss";
+import "./actionButton.modules.scss";
 
 const ActionButton = ({children, onClick}) => {
   return (

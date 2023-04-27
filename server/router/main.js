@@ -9,7 +9,6 @@ const getAllFinishedBooks = require("../controllers/getFinishedBooksControllers"
 const getSingleBookPage = require("../controllers/getSingleBookPageController");
 const bookNotesController = require("../controllers/bookNotesControllers");
 const bookNotesControllers = require("../controllers/bookNotesControllers");
-const { updateBookNote } = require("../controllers/bookNotesControllers");
 
 // AUTHENTIFICATION & AUTHORIZATION
 router.post("/register", authController.registerUser);

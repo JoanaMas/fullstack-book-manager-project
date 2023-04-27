@@ -1,5 +1,5 @@
 import React from "react";
-import "./inputField.scss";
+import "./inputField.modules.scss";
 
 const InputField = ({ children, type, placeholder, htmlFor, id, inputRef }) => {
   return (

@@ -1,5 +1,5 @@
 import React from 'react';
-import './leftFormSide.scss';
+import './leftFormSide.modules.scss';
 
 const LeftFormSide = ({ title, question, route, linkText }) => {
   return (

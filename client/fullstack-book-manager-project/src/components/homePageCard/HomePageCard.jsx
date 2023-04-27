@@ -1,5 +1,5 @@
 import React from "react";
-import './homePageCard.scss'
+import './homePageCard.modules.scss'
 
 const HomePageCard = ({children}) => {
   return (

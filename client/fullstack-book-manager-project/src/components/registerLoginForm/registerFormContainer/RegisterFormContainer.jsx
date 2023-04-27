@@ -1,5 +1,5 @@
 import React from "react";
-import "./registerFormContainer.scss";
+import "./registerFormContainer.modules.scss";
 
 const RegisterFormContainer = ({ children }) => {
   return (

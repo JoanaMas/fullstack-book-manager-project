@@ -1,5 +1,5 @@
 import React from 'react';
-import './loginPage.scss';
+import './loginPage.modules.scss';
 import routes from '../../routes/routes';
 import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';

@@ -14,13 +14,8 @@ import SingleBookPage from './pages/singleBook/SingleBookPage';
 import FinishedBooksPage from './pages/finisgedBooks/FinishedBooksPage';
 // Components
 import Navbar from './components/navBar/Navbar';
-// Redux
-import { useSelector } from 'react-redux';
 
 function App() {
-
-  // Null user to fix design
-  const user = useSelector(state => state.users.value.user);
 
   return (
     <div>

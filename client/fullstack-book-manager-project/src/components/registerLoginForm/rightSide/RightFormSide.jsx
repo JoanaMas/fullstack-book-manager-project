@@ -1,5 +1,5 @@
 import React from 'react';
-import './rightFormSide.scss';
+import './rightFormSide.modules.scss';
 
 
 const RightFormSide = ({ children }) => {

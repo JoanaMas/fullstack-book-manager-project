@@ -1,5 +1,5 @@
 import React from "react";
-import "./profilePictureUploadForm.scss";
+import "./profilePictureUploadForm.modules.scss";
 import { useRef } from "react";
 // Redux
 import { useDispatch, useSelector } from "react-redux";

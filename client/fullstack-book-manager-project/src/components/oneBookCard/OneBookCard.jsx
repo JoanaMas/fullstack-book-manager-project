@@ -1,5 +1,5 @@
 import React from "react";
-import "./oneBookCard.scss";
+import "./oneBookCard.modules.scss";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 // Icons

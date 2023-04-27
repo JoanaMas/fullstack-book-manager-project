@@ -1,5 +1,5 @@
 import React from "react";
-import "./homePage.scss";
+import "./homePage.modules.scss";
 // Icons
 import HomePageCard from "../../components/homePageCard/HomePageCard";
 import TravelExploreIcon from "@mui/icons-material/TravelExplore";

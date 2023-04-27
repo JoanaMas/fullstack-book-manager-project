@@ -1,5 +1,5 @@
 import React from "react";
-import "./registerPage.scss";
+import "./registerPage.modules.scss";
 import routes from "../../routes/routes";
 import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
@@ -87,10 +87,11 @@ const RegisterPage = () => {
           dispatch(changeErrorMessage(data.error))
         } else {
           console.log(data)
+          navigate(routes.loginPage);
         }
       });
 
-    navigate(routes.loginPage);
+    // navigate(routes.loginPage);
 
   };
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useRef } from 'react';
-import './createBookForm.scss';
+import './createBookForm.modules.scss';
 // Components
 import RegisterFormContainer from '../registerLoginForm/registerFormContainer/RegisterFormContainer';
 import RightFormSide from '../registerLoginForm/rightSide/RightFormSide';
