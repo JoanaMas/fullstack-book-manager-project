@@ -1,6 +1,7 @@
 import React from 'react';
 import { useRef } from 'react';
 import './createBookForm.modules.scss';
+import axios from "axios";
 // Components
 import RegisterFormContainer from '../registerLoginForm/registerFormContainer/RegisterFormContainer';
 import RightFormSide from '../registerLoginForm/rightSide/RightFormSide';
@@ -40,23 +41,16 @@ const CreateBookForm = ({
       userId: currentUserId,
     };
 
-
     // SENDING DATA TO BACK-END
-    const options = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newBook),
-    };
+    axios.post("http://localhost:4005/createBook/" + currentUserId, newBook)
+    .then(res => {
+      dispatch(setBooks(res.data.allBooks));
+      dispatch(setOpenCreateBookForm(false));
+    })
+    .catch(error => {
+      console.error(error.message)
+    })
 
-    fetch("http://localhost:4005/createBook/" + currentUserId, options)
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        dispatch(setBooks(data.allBooks));
-        dispatch(setOpenCreateBookForm(false))
-      });
   };
 
 

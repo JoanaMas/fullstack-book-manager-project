@@ -1,5 +1,6 @@
 import React from "react";
 import "./singleBookPage.modules.scss";
+import axios from "axios";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useRef, useState } from "react";
@@ -15,10 +16,9 @@ import { setBookNotes } from "../../redux/bookNotes";
 // Icons
 import AutoStoriesOutlinedIcon from "@mui/icons-material/AutoStoriesOutlined";
 import KeyboardArrowRightOutlinedIcon from "@mui/icons-material/KeyboardArrowRightOutlined";
-import EditNoteOutlinedIcon from "@mui/icons-material/EditNoteOutlined";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
-import EditOffOutlinedIcon from '@mui/icons-material/EditOffOutlined';
+import EditOffOutlinedIcon from "@mui/icons-material/EditOffOutlined";
 
 const SingleBookPage = () => {
   const { bookId } = useParams();
@@ -38,118 +38,80 @@ const SingleBookPage = () => {
 
   //  DISPLAY ONE BOOK
   useEffect(() => {
-    fetch("http://localhost:4005/singleBookPage/" + bookId)
-      .then((res) => res.json())
-      .then((data) => {
-        dispatch(setCurrentUser(data.currentUser));
-        dispatch(setOneBook(data.book));
-      });
+    axios.get("http://localhost:4005/singleBookPage/" + bookId).then((res) => {
+      console.log(res.data);
+      dispatch(setCurrentUser(res.data.currentUser));
+      dispatch(setOneBook(res.data.book));
+    });
   }, []);
 
   // SEND BOOK NOTE TO BACK END
   const addBookNote = () => {
-    dispatch(changeErrorMessage(""))
+    dispatch(changeErrorMessage(""));
 
     const newBookNote = {
       bookId: bookId,
       bookNote: bookNoteRef.current.value,
       userId: currentUser._id,
-  };
+    };
 
-  if(newBookNote.bookNote === "") { 
-    return dispatch(changeErrorMessage("Book note can not be blank."))
-  }
+    if (newBookNote.bookNote === "") {
+      return dispatch(changeErrorMessage("Book note can not be blank."));
+    }
 
-  const options = {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(newBookNote),
-  };
-
-  fetch("http://localhost:4005/addBookNote", options)
-    .then((res) => res.json())
-    .then((data) => {
-      dispatch(setBookNotes(data.allBookNotes))
-      // console.log(data);
+    axios.post("http://localhost:4005/addBookNote", newBookNote).then((res) => {
+      console.log(res.data);
+      dispatch(setBookNotes(res.data.allBookNotes));
     });
-}
-
-useEffect(() => {
-  fetch("http://localhost:4005/getBookNotes/" + bookId)
-  .then((res) => res.json())
-  .then((data) => {
-    dispatch(setBookNotes(data.allBookNotes))
-    // console.log(data)
-  })
-}, [])
-
-
-
-// DELETE BOOK NOTE
-
-const deleteBookNote = (noteId) => {
-  
-  const bookNoteId = {
-    bookNoteId: noteId,
-    bookId: bookId,
   };
 
-  const options = {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(bookNoteId),
+  useEffect(() => {
+    axios.get("http://localhost:4005/getBookNotes/" + bookId).then((res) => {
+      dispatch(setBookNotes(res.data.allBookNotes));
+    });
+  }, []);
+
+  // DELETE BOOK NOTE
+
+  const deleteBookNote = (noteId) => {
+    const bookNoteId = {
+      bookNoteId: noteId,
+      bookId: bookId,
+    };
+
+    axios
+      .post("http://localhost:4005/deleteBookNote", bookNoteId)
+      .then((res) => {
+        dispatch(setBookNotes(res.data.allBookNotes));
+      });
   };
 
-  fetch("http://localhost:4005/deleteBookNote", options)
-  .then((res) => res.json())
-  .then((data) => {
-    dispatch(setBookNotes(data.allBookNotes))
-    console.log(data);
-  });
-
-}
-
-// EDIT BOOK NOTE
-const editBookNote = (bookNote, noteId) => {
-  setNoteValue(bookNote)
-  setOpenEditBookNote(!openEditBookNote)
-  setNoteId(noteId)
-}
-
-const handleNoteEditChange = (event) => {
-  setNoteValue(event.target.value)
-}
-
-const updateBookNote = () => {
-
-  const updatedBookNote = {
-    bookNote: bookNoteRef.current.value,
-    noteId: noteId,
-    bookId: bookId,
-  }
-
-  const options = {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(updatedBookNote),
+  // EDIT BOOK NOTE
+  const editBookNote = (bookNote, noteId) => {
+    setNoteValue(bookNote);
+    setOpenEditBookNote(!openEditBookNote);
+    setNoteId(noteId);
   };
 
+  const handleNoteEditChange = (event) => {
+    setNoteValue(event.target.value);
+  };
 
-  fetch("http://localhost:4005/updateBookNote", options)
-  .then((res) => res.json())
-  .then((data) => {
-    dispatch(setBookNotes(data.allBookNotes))
-    setOpenEditBookNote(!openEditBookNote)
-    setNoteValue("")
-  });
+  const updateBookNote = () => {
+    const updatedBookNote = {
+      bookNote: bookNoteRef.current.value,
+      noteId: noteId,
+      bookId: bookId,
+    };
 
-}
+    axios
+      .post("http://localhost:4005/updateBookNote", updatedBookNote)
+      .then((res) => {
+        dispatch(setBookNotes(res.data.allBookNotes));
+        setOpenEditBookNote(!openEditBookNote);
+        setNoteValue("");
+      });
+  };
 
   return (
     <div className="grid-center">
@@ -217,30 +179,30 @@ const updateBookNote = () => {
           <h1>Book notes</h1>
 
           {/* Notes */}
-          <div className={ bookNotes.length !== 0 && "displayNotes"}>
-
-            {bookNotes.map((note, i) => 
-            
-            <div key={i} className="note">
-              <div className="text">
-              <p>{note.bookNote}</p>
-              </div>
-              <div className="actionIcons">
-                <div>
-                  {openEditBookNote 
-                  
-                  ? <EditOffOutlinedIcon onClick={() => editBookNote(note.bookNote, note._id)} /> 
-                  : <ModeEditOutlineOutlinedIcon onClick={() => editBookNote(note.bookNote, note._id)} />
-        
-                  }
+          <div className={bookNotes.length !== 0 && "displayNotes"}>
+            {bookNotes.map((note, i) => (
+              <div key={i} className="note">
+                <div className="text">
+                  <p>{note.bookNote}</p>
                 </div>
-                <div onClick={() => deleteBookNote(note._id)}>
-                  <DeleteOutlineOutlinedIcon />
+                <div className="actionIcons">
+                  <div>
+                    {openEditBookNote & (noteId === note._id) ? (
+                      <EditOffOutlinedIcon
+                        onClick={() => editBookNote(note.bookNote, note._id)}
+                      />
+                    ) : (
+                      <ModeEditOutlineOutlinedIcon
+                        onClick={() => editBookNote(note.bookNote, note._id)}
+                      />
+                    )}
+                  </div>
+                  <div onClick={() => deleteBookNote(note._id)}>
+                    <DeleteOutlineOutlinedIcon />
+                  </div>
                 </div>
               </div>
-            </div>
-            )}
-
+            ))}
           </div>
 
           <div className="inputNoteContainer">
@@ -254,11 +216,11 @@ const updateBookNote = () => {
               value={noteValue}
               onChange={handleNoteEditChange}
             ></textarea>
-            {openEditBookNote 
-            ? <ActionButton onClick={updateBookNote}>Update</ActionButton>
-            : <ActionButton onClick={addBookNote}>Save</ActionButton>
-          }
-            
+            {openEditBookNote ? (
+              <ActionButton onClick={updateBookNote}>Update</ActionButton>
+            ) : (
+              <ActionButton onClick={addBookNote}>Save</ActionButton>
+            )}
           </div>
           {error}
         </div>

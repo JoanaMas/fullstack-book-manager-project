@@ -1,5 +1,6 @@
 import React from 'react';
 import './loginPage.modules.scss';
+import axios from 'axios';
 import routes from '../../routes/routes';
 import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -25,7 +26,6 @@ const LoginPage = () => {
 
    // ERROR MESSAGE REDUCER
    const error = useSelector((store) => store.error.value.error);
-   const currentUser = useSelector((store) => store.users.value.currentUser);
    const dispatch = useDispatch();
 
   const loginUser = () => {
@@ -36,24 +36,18 @@ const LoginPage = () => {
     }
 
     // SENDING DATA TO BACK-END
-    const options = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(existingUser),
-    };
-
-    fetch("http://localhost:4005/login", options)
-      .then((res) => res.json())
-      .then((data) => {
-        if(data.error) {
-          dispatch(changeErrorMessage(data.error))
+      axios
+      .post("http://localhost:4005/login", existingUser)
+      .then(res => {
+        console.log(res.data)
+        if(res.data.error) {
+          dispatch(changeErrorMessage(res.data.error))
         } else {
-          dispatch(setCurrentUser(data.user))
-          navigate('/profile/'+data.user._id)
+          dispatch(setCurrentUser(res.data.user))
+          navigate('/profile/'+res.data.user._id)
         }
-      });
+        
+      })
   }
 
 

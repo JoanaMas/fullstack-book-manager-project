@@ -1,5 +1,6 @@
 import React from "react";
 import "./registerPage.modules.scss";
+import axios from "axios";
 import routes from "../../routes/routes";
 import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
@@ -72,26 +73,14 @@ const RegisterPage = () => {
     }
 
     // SENDING DATA TO BACK-END
-    const options = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newUserData),
-    };
-
-    fetch("http://localhost:4005/register", options)
-      .then((res) => res.json())
-      .then((data) => {
-        if(data.error) {
-          dispatch(changeErrorMessage(data.error))
-        } else {
-          console.log(data)
-          navigate(routes.loginPage);
-        }
-      });
-
-    // navigate(routes.loginPage);
+      axios.post("http://localhost:4005/register", newUserData)
+      .then(res => {
+          if(res.data.error) {
+            dispatch(changeErrorMessage(res.data.error))
+          } else {
+            navigate(routes.loginPage);
+          }
+      })
 
   };
 

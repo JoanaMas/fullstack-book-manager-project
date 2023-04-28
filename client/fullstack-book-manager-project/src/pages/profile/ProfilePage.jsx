@@ -1,6 +1,7 @@
 import React from "react";
 import "./profilePage.modules.scss";
-import { useState, useEffect, useRef } from "react";
+import axios from "axios";
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import routes from "../../routes/routes";
@@ -13,82 +14,78 @@ import ProfilePictureUploadForm from "../../components/ProfilePictureUploadForm/
 // Icons
 import ModeEditOutlinedIcon from "@mui/icons-material/ModeEditOutlined";
 import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
-import ArrowCircleRightOutlinedIcon from '@mui/icons-material/ArrowCircleRightOutlined';
+import ArrowCircleRightOutlinedIcon from "@mui/icons-material/ArrowCircleRightOutlined";
 // Redux
 import { useSelector, useDispatch } from "react-redux";
 import { setCurrentUser } from "../../redux/user";
 import { setBooks, setFinishedBooks } from "../../redux/books";
-import { setOpenCreateBookForm, setOpenPictureUpload } from "../../redux/onClickActions";
+import {
+  setOpenCreateBookForm,
+  setOpenPictureUpload,
+} from "../../redux/onClickActions";
 
 const ProfilePage = () => {
-
   const currentUser = useSelector((store) => store.users.value.currentUser);
   const booksInProgress = useSelector((store) => store.books.value.books);
-  const handleOpenCreateBookForm = useSelector((store) => store.onClickActions.value.openCreateBookForm);
-  const handleOpenPictureUploadForm = useSelector((store) => store.onClickActions.value.openPictureUpload);
-  const completedBooks = useSelector((store) => store.books.value.finishedBooks);
+  const handleOpenCreateBookForm = useSelector(
+    (store) => store.onClickActions.value.openCreateBookForm
+  );
+  const handleOpenPictureUploadForm = useSelector(
+    (store) => store.onClickActions.value.openPictureUpload
+  );
+  const completedBooks = useSelector(
+    (store) => store.books.value.finishedBooks
+  );
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const { id } = useParams();
 
+  // COUNT TOTAL PAGES READ
+  const pagesReadArray = completedBooks.map(({ pages }) => {
+    return pages;
+  });
 
-    // COUNT TOTAL PAGES READ
-    const pagesReadArray = completedBooks.map(({pages}) => {
-      return pages
-    })
-  
-    const totalOfPagesRead = pagesReadArray.reduce((sum, acc) => {
-      return sum + acc
-    }, 0)
+  const totalOfPagesRead = pagesReadArray.reduce((sum, acc) => {
+    return sum + acc;
+  }, 0);
 
-  
-
- 
   // DISPLAYED CURRENT USER IN PROFILE
-
   useEffect(() => {
-    fetch("http://localhost:4005/userProfile/" + id)
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.registeredUser) {
-          dispatch(setCurrentUser(data.registeredUser));
-        } else {
-          dispatch(setCurrentUser(null));
-          navigate(routes.homePage);
-        }
-      });
+    axios.get("http://localhost:4005/userProfile/" + id).then((res) => {
+      console.log(res.data);
+      if (res.data.registeredUser) {
+        dispatch(setCurrentUser(res.data.registeredUser));
+      } else {
+        dispatch(setCurrentUser(null));
+        navigate(routes.homePage);
+      }
+    });
   }, []);
 
   const handleUploadPhotoOpen = () => {
-    dispatch(setOpenPictureUpload(!handleOpenPictureUploadForm))
+    dispatch(setOpenPictureUpload(!handleOpenPictureUploadForm));
   };
 
   const handleCreateBookFormOpen = () => {
-    dispatch(setOpenCreateBookForm(!handleOpenCreateBookForm))
+    dispatch(setOpenCreateBookForm(!handleOpenCreateBookForm));
   };
-
 
   // GET BOOKS BY USER ID THAT ARE IN PROGRESS OF READING
   useEffect(() => {
-    fetch("http://localhost:4005/getBooksInProgress/" + id)
-      .then((res) => res.json())
-      .then((data) => {
-        dispatch(setBooks(data.booksInProgress));
-      });
+    axios.get("http://localhost:4005/getBooksInProgress/" + id)
+    .then(res => {
+      dispatch(setBooks(res.data.booksInProgress));
+    })
   }, []);
 
-
-  
-   // GET FINISHED BOOKS - data fetched to see total pages read
-   useEffect(() => {
-    fetch("http://localhost:4005/getFinishedBooks/" + id)
-      .then((res) => res.json())
-      .then((data) => {
-        dispatch(setFinishedBooks(data.finishedBooks));
-        // console.log(data);
-      });
+  // GET FINISHED BOOKS - data fetched to see total pages read
+  useEffect(() => {
+    axios.get("http://localhost:4005/getFinishedBooks/" + id)
+    .then(res => {
+      dispatch(setFinishedBooks(res.data.finishedBooks));
+    })
   }, []);
 
 
@@ -96,7 +93,6 @@ const ProfilePage = () => {
   return (
     // USER BOARD
     <div className="profileContainer">
-
       <div className="userProfileContainer">
         <div className="image">
           <img src={currentUser?.profilePicture} />
@@ -120,13 +116,11 @@ const ProfilePage = () => {
         </div>
       </div>
 
-
       {/* PROFILE PICTURE UPLOAD */}
-        <ProfilePictureUploadForm
+      <ProfilePictureUploadForm
         currentUserId={id}
         handleOpenPictureUploadForm={handleOpenPictureUploadForm}
-        />
- 
+      />
 
       {/* HEADER */}
       <Header title={`Welcome, ${currentUser?.firstName}! Enjoy using`}>
@@ -135,12 +129,11 @@ const ProfilePage = () => {
         </ActionButton>
       </Header>
 
-
       {/* CREATE BOOK FORM */}
-      <div className={handleOpenCreateBookForm? "d-flex" : "d-none"}>
-        <CreateBookForm 
-        currentUserId={id}
-        handleCreateBookFormOpen={handleCreateBookFormOpen}
+      <div className={handleOpenCreateBookForm ? "d-flex" : "d-none"}>
+        <CreateBookForm
+          currentUserId={id}
+          handleCreateBookFormOpen={handleCreateBookFormOpen}
         />
       </div>
 
@@ -153,40 +146,39 @@ const ProfilePage = () => {
           </div>
         </div>
         <div className="booksInProgress">
-
           {/* ONE BOOK */}
-          {booksInProgress.map((book, i) => 
-          <OneBookCard 
-          key={i}
-          cover={book.cover}
-          title={book.title}
-          year={book.year}
-          author={book.author}
-          pages={book.pages}
-          isFinished={book.isFinished}
-          bookId={book._id}
-          userId={book.userId}
-          currentUserId={id}
-          />
-          )}
-
+          {booksInProgress.map((book, i) => (
+            <OneBookCard
+              key={i}
+              cover={book.cover}
+              title={book.title}
+              year={book.year}
+              author={book.author}
+              pages={book.pages}
+              isFinished={book.isFinished}
+              bookId={book._id}
+              userId={book.userId}
+              currentUserId={id}
+            />
+          ))}
         </div>
       </div>
-
 
       {/* LINK TO FINISHED BOOKS */}
       <div className="bookLibraryContainer">
         <h1>Explore books you have already finished!</h1>
-        <div className="arrowRight" onClick={() => navigate("/book-library/" + id)}><ArrowCircleRightOutlinedIcon /></div>
+        <div
+          className="arrowRight"
+          onClick={() => navigate("/book-library/" + id)}
+        >
+          <ArrowCircleRightOutlinedIcon />
+        </div>
       </div>
-
     </div>
   );
 };
 
 export default ProfilePage;
-
-
 
 // FAKE DATA
 const user = {

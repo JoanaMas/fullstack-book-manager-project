@@ -1,5 +1,6 @@
 import React from "react";
 import "./finishedBooksPage.modules.scss";
+import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 // Redux
@@ -26,55 +27,41 @@ const FinishedBooksPage = () => {
 
   // GET CURRENT USER
   useEffect(() => {
-    fetch("http://localhost:4005/userProfile/" + id)
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.registeredUser) {
-          dispatch(setCurrentUser(data.registeredUser));
-        } else {
-          dispatch(setCurrentUser(null));
-          navigate(routes.homePage);
-        }
-      });
+    axios
+    .get("http://localhost:4005/userProfile/" + id)
+    .then((res) => {
+      if (res.data.registeredUser) {
+        dispatch(setCurrentUser(res.data.registeredUser));
+      } else {
+        dispatch(setCurrentUser(null));
+        navigate(routes.homePage);
+      }
+    });
   }, []);
 
   // GET FINISHED BOOKS
   useEffect(() => {
-    fetch("http://localhost:4005/getFinishedBooks/" + id)
-      .then((res) => res.json())
-      .then((data) => {
-        dispatch(setFinishedBooks(data.finishedBooks));
-        // console.log(data);
-      });
+    axios.
+    get("http://localhost:4005/getFinishedBooks/" + id)
+    .then((res) => {
+      console.log(res.data);
+      dispatch(setFinishedBooks(res.data.finishedBooks));
+    });
   }, [currentUser]);
-
 
   // DELETE FINISHED BOOK
   const deleteFinishedBook = (bookId, userId) => {
-    
     const uniqueBookId = {
       bookId: bookId,
       userId: userId,
-    }
-
-    const options = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(uniqueBookId),
     };
 
-    fetch("http://localhost:4005/deleteFinishedBook", options)
-      .then((res) => res.json())
-      .then((data) => {
-        dispatch(setFinishedBooks(data.finishedBooks));
-        console.log(data);
+    axios
+      .post("http://localhost:4005/deleteFinishedBook", uniqueBookId)
+      .then((res) => {
+        dispatch(setFinishedBooks(res.data.finishedBooks));
       });
   };
-
-
-
 
   return (
     <>
@@ -82,15 +69,19 @@ const FinishedBooksPage = () => {
         <h1>Book Library</h1>
       </div>
       <div className="bookLibraryContainer">
-
-        {completedBooks.length === 0 
-        ? <div className="emptyLibraryTitle">
-          <h1>Your library is currently empty.</h1> 
-          <div className="booksInProgressBtn" onClick={() => navigate("/profile/" + currentUser._id)}><ActionButton>Explore books in progress</ActionButton></div>
+        {completedBooks.length === 0 ? (
+          <div className="emptyLibraryTitle">
+            <h1>Your library is currently empty.</h1>
+            <div
+              className="booksInProgressBtn"
+              onClick={() => navigate("/profile/" + currentUser._id)}
+            >
+              <ActionButton>Explore books in progress</ActionButton>
+            </div>
           </div>
-        : <div className="finishedBooksContainer">
-          {completedBooks.map((book, i) => (
-    
+        ) : (
+          <div className="finishedBooksContainer">
+            {completedBooks.map((book, i) => (
               <OneBookCard
                 key={i}
                 cover={book.cover}
@@ -102,12 +93,16 @@ const FinishedBooksPage = () => {
                 userId={book.userId}
                 currentUserId={id}
               >
-                <div className="deleteFinishedBookIcon" onClick={() => deleteFinishedBook(book._id, book.userId)}><DeleteOutlineOutlinedIcon/></div>
+                <div
+                  className="deleteFinishedBookIcon"
+                  onClick={() => deleteFinishedBook(book._id, book.userId)}
+                >
+                  <DeleteOutlineOutlinedIcon />
+                </div>
               </OneBookCard>
-          ))}
-        </div>
-        }
-
+            ))}
+          </div>
+        )}
       </div>
     </>
   );

@@ -1,5 +1,6 @@
 import React from "react";
 import "./oneBookCard.modules.scss";
+import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 // Icons
@@ -40,20 +41,15 @@ const OneBookCard = ({
       userId: userId,
     };
 
-    const options = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(uniqueBookId),
-    };
-
-    fetch("http://localhost:4005/deleteBook", options)
-      .then((res) => res.json())
-      .then((data) => {
-        dispatch(setBooks(data.booksInProgress));
-        console.log(data);
-      });
+      // SENDING DATA TO BACK-END
+      axios.post("http://localhost:4005/deleteBook", uniqueBookId)
+      .then(res => {
+        console.log(res.data)
+        dispatch(setBooks(res.data.booksInProgress));
+      })
+      .catch(error => {
+        console.error(error.message)
+      })
   };
 
   // BOOK IS FINISHED
@@ -71,20 +67,15 @@ const OneBookCard = ({
       finished: checked,
     };
 
-    const options = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(bookIsFinished),
-    };
-
-    fetch("http://localhost:4005/updateBookFinished/" + currentUserId, options)
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        dispatch(setBooks(data.booksInProgress));
-      });
+      // SENDING DATA TO BACK-END
+      axios.post("http://localhost:4005/updateBookFinished/" + currentUserId, bookIsFinished)
+      .then(res => {
+        console.log(res.data);
+        dispatch(setBooks(res.data.booksInProgress));
+      })
+      .catch(error => {
+        console.error(error.message)
+      })
   };
 
   return (
