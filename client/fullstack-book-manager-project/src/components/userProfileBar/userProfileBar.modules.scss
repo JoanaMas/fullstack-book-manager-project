@@ -71,15 +71,10 @@
 
       .stats {
         display: flex;
-        padding: $p-5;
+        padding: $p-2;
         width: fit-content;
 
-
         @include smallScreen{
-          flex-direction: row;
-        }
-
-        @include largeScreen {
           flex-direction: column;
         }
 
@@ -90,11 +85,11 @@
           @include smallScreen {
             width: 100%;
             margin-left: $m-5;
-            font-size: $font-2;
+            font-size: $font-4;
           }
 
           @include largeScreen {
-            font-size: $font-3;
+            font-size: $font-4;
           }
       
           span {

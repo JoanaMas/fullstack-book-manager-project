@@ -24,8 +24,6 @@
     width: 300px;
     height: 70px;
   }
-
-
 }
 
 
@@ -34,6 +32,14 @@
   display: flex;
   flex-wrap: wrap;
   min-height: auto;
+
+  @include smallScreen {
+    justify-content: center;
+  }
+
+  @include mediumScreen {
+    justify-content: flex-start;
+  }
 
   .deleteFinishedBookIcon {
     position: absolute;

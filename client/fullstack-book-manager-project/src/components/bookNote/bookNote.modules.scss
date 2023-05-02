@@ -1,0 +1,39 @@
+@import "../../style/variables";
+@import "../../style/style";
+
+
+.note {
+    width: 45%;
+    height: 400px;
+    overflow: scroll;
+    border: 10px solid $orange;
+    border-radius: 20px;
+    padding: $p-5;
+    font-size: $font-4;
+    justify-content: space-between;
+    gap: $g-3;
+    display: flex;
+
+    .text {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        * {
+            width: 100%;
+        }
+    }
+    
+    .actionIcons {
+        width: 40%;
+        height: 20px;
+        display: flex;
+        gap: $g-1;
+
+                        
+        * {
+            font-size: 30pt;
+            flex-basis: auto;
+        }
+    }
+}

@@ -1,0 +1,108 @@
+@import "../../style/variables";
+@import "../../style/style";
+
+.singleBook {
+    height: 100%;
+    width: 100%;
+    background-color: $primary;
+    border-radius: 20px;
+    display: flex;
+
+    span {
+        color: $orange;
+    }
+
+    .bookImage {
+        width: 100%;
+        padding: $p-10;
+        flex: 1;
+
+        img {
+            width: 500px;
+            max-height: 800px;
+            object-fit: cover;
+            border-radius: 20px;
+        }
+    }
+
+    .bookContentContainer {
+        max-height: 900px;
+        flex: 4;
+        padding: $p-10;
+
+        .bookContent {
+            width: 100%;
+            max-height: 900px;
+            overflow: scroll;
+            background-color: $white;
+            border-radius: 10px;
+            padding: $p-6;
+            gap: $g-6;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            color: $dark-green;
+    
+            
+
+            .heading {
+                padding-bottom: $p-4;
+                border-bottom: 2px solid $primary;
+                display: flex;
+                justify-content: space-between;
+                h1 {
+                    font-size: 40pt;
+                    margin-top: $m-3;
+                    margin-bottom: 0;
+                }
+
+                h2 {
+                    font-size: 20pt;
+                }
+
+               
+                .writeNoteIcon * {
+                    font-size: 50pt;
+
+                }
+
+            }
+
+
+            .pages {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                gap: $g-3;
+                padding-bottom: $p-4;
+                border-bottom: 2px solid $primary;
+
+                * {
+                    font-size: $font-6;
+                }
+                
+                .pagesIcon {
+                    display: flex;
+                    gap: $g-2;
+                }
+
+            }
+
+
+
+            .bookStatus {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+
+                * {
+                    margin: 0;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    gap: $g-1;
+                }
+            }
+        }
+    }
+}
