@@ -44,6 +44,7 @@ const SingleBookPage = () => {
       dispatch(setOneBook(res.data.book));
     });
   }, []);
+  
 
   // SEND BOOK NOTE TO BACK END
   const addBookNote = () => {
@@ -71,8 +72,8 @@ const SingleBookPage = () => {
     });
   }, []);
 
-  // DELETE BOOK NOTE
 
+  // DELETE BOOK NOTE
   const deleteBookNote = (noteId) => {
     const bookNoteId = {
       bookNoteId: noteId,

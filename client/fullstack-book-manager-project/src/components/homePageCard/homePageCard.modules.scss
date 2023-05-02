@@ -1,8 +1,9 @@
 @import '../../style/variables';
+@import '../../style/style';
 
 .card {
     flex: 1;
-    height: 600px;
+    height: 500px;
     background-color: $primary;
     border-radius: 30px;
     display: flex;
@@ -11,17 +12,41 @@
     padding-left: $p-6;
     border: 10px solid $orange;
 
+    &:last-child {
+
+        @include largeScreen {
+            height: 400px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        h3 {
+            @include largeScreen {
+                font-size: 30pt;
+                width: 50%;
+            }
+        }
+    }
+
 
     h3 {
         margin: $m-6 0 $m-2 0;
         color: $dark-green;
         letter-spacing: 3px;
+
     }
+
 
     h1 {
         width: 80%;
         font-size: $font-7;
         color: $dark-ligther-brown;
+
+        @include smallScreen {
+            font-size: $font-3;
+        }
 
         * {
             font-size: 30pt;

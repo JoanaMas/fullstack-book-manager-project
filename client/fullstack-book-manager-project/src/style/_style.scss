@@ -26,3 +26,29 @@ a {
     display: grid;
     place-items: center;
 }
+
+// RESPONSIVE DESIGN
+
+@mixin smallScreen {
+    @media (min-width: $sm) {
+        @content;
+    }
+}
+
+@mixin mediumScreen {
+    @media (min-width: $md) {
+        @content;
+    }
+}
+
+@mixin largeScreen {
+    @media (min-width: $lg) {
+        @content;
+    }
+}
+
+@mixin extraLargeScreen {
+    @media (min-width: $xl) {
+        @content;
+    }
+}

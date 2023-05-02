@@ -27,6 +27,7 @@ const HomePage = () => {
           </ActionButton>
         </Header>
 
+        <div className="cardsContainer">
         <div className="content">
           <HomePageCard>
             <h3>NEW BOOK MANAGER</h3>
@@ -34,17 +35,22 @@ const HomePage = () => {
           </HomePageCard>
 
           <HomePageCard>
+            <div className="features">
             <h3>EXPLORE NEW FEATURES</h3>
 
             <h1>Manage books you are reading.</h1>
             <h1>Take favorite notes from your read.</h1>
             <h1>Create your book library.</h1>
+            </div>
           </HomePageCard>
 
+          <div className="contactUs">
           <HomePageCard>
             <h3>HAVE SOME QUESTIONS?</h3>
             <div className="socialIcons">
-              <h1 className="contactUsTitle">Contact Us!</h1>
+              <div className="contactUsTitle">
+              <h1>Contact Us!</h1>
+              </div>
               <div className="icon email">
                 <a href="mailto:bookSmart@gmail.com">
                   <MailOutlineIcon fontSize="large" />
@@ -63,6 +69,8 @@ const HomePage = () => {
             </div>
           </HomePageCard>
         </div>
+        </div>
+      </div>
       </div>
     </div>
   );

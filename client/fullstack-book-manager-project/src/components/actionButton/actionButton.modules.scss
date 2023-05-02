@@ -1,4 +1,5 @@
 @import '../../style/variables';
+@import '../../style/style';
 
 .button {
     width: 150px;
@@ -10,4 +11,8 @@
     font-size: $font-2;
     margin-top: $m-3;
     letter-spacing: 2px;
+
+    @include smallScreen {
+        
+    }
 }
