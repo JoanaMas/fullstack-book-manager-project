@@ -13,6 +13,7 @@
   @include smallScreen {
     height: 800px;
     flex-direction: column-reverse;
+    overflow: hidden;
   }
 
   @include largeScreen {
@@ -23,7 +24,6 @@
 
   .title {
     padding-left: $p-4;
-    padding-bottom: $p-8;
 
     @include smallScreen {
         padding-bottom: $p-4;
@@ -32,21 +32,27 @@
 
     h1 {
       color: $dark-green;
-      font-size: $font-6;
 
       @include smallScreen {
         font-size: $font-3;
       }
 
       @include mediumScreen {
-        font-size: $font-4;
+        font-size: $font-6;
       }
 
       span {
         display: block;
         color: $dark-ligther-brown;
-        font-size: 40pt;
-        margin-top: $m-5;
+        margin-top: $m-4;
+
+        @include smallScreen {
+          font-size: 30pt;
+        }
+
+        @include largeScreen {
+          font-size: 40pt;
+        }
       }
     }
   }

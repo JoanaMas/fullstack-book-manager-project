@@ -11,6 +11,7 @@ import ActionButton from "../../components/actionButton/ActionButton";
 import OneBookCard from "../../components/oneBookCard/OneBookCard";
 import CreateBookForm from "../../components/createBookForm/CreateBookForm";
 import ProfilePictureUploadForm from "../../components/ProfilePictureUploadForm/ProfilePictureUploadForm";
+import UserProfileBar from "../../components/userProfileBar/UserProfileBar";
 // Icons
 import ModeEditOutlinedIcon from "@mui/icons-material/ModeEditOutlined";
 import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
@@ -36,6 +37,7 @@ const ProfilePage = () => {
   const completedBooks = useSelector(
     (store) => store.books.value.finishedBooks
   );
+
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -93,28 +95,15 @@ const ProfilePage = () => {
   return (
     // USER BOARD
     <div className="profileContainer">
-      <div className="userProfileContainer">
-        <div className="image">
-          <img src={currentUser?.profilePicture} />
-          <div className="editIcon" onClick={handleUploadPhotoOpen}>
-            <ModeEditOutlinedIcon />
-          </div>
-        </div>
 
-        <div className="userInfo">
-          <div>
-            <h3>{currentUser?.email} </h3>
-          </div>
-          <div className="stats">
-            <h5>
-              Books finished: <span>{completedBooks.length}</span>
-            </h5>
-            <h5>
-              Total pages read: <span>{totalOfPagesRead}</span>
-            </h5>
-          </div>
-        </div>
-      </div>
+    {/* USER PROFILE BAR WITH PROFILE PICTURE */}
+    <UserProfileBar
+      profilePicture={currentUser?.profilePicture}
+      handleUploadPhotoOpen={handleUploadPhotoOpen}
+      email={currentUser?.email}
+      completedBooks={completedBooks.length}
+      totalOfPagesRead={totalOfPagesRead}
+    />
 
       {/* PROFILE PICTURE UPLOAD */}
       <ProfilePictureUploadForm

@@ -1,0 +1,107 @@
+@import "../../style/variables";
+@import "../../style/style";
+
+
+.userProfileContainer {
+    width: 100%;
+    height: 100%;
+    padding: $p-2;
+    background-color: $primary;
+    border-radius: 50px;
+    display: flex;
+    gap: $g-4;
+    align-items: center;
+    position: relative;
+
+    @include smallScreen {
+      flex-direction: column;
+    }
+
+    @include largeScreen {
+      flex-direction: row;
+    }
+  
+    .image {
+      height: 100%;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      img {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        object-fit: cover;
+
+        @include largeScreen {
+          margin-left: $m-4;
+        }
+      }
+  
+      .editIcon {
+        position: absolute;
+        top: 60%;
+        right: -10px;
+        background-color: $light-brown;
+        padding: 2px 4px;
+        border-radius: 50%;
+      }
+    }
+  
+    .userInfo {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      height: 100%;
+      color: $dark-green;
+
+      @include smallScreen {
+        flex-direction: column;
+      }
+
+      @include  largeScreen {
+        flex-direction: row;
+      }
+
+      h3 {
+        margin-bottom: $m-2;
+        font-size: $font-6;
+      }
+
+      .stats {
+        display: flex;
+        padding: $p-5;
+        width: fit-content;
+
+
+        @include smallScreen{
+          flex-direction: row;
+        }
+
+        @include largeScreen {
+          flex-direction: column;
+        }
+
+        h5 {
+          font-size: $font-5;
+          margin-right: $m-5;
+    
+          @include smallScreen {
+            width: 100%;
+            margin-left: $m-5;
+            font-size: $font-2;
+          }
+
+          @include largeScreen {
+            font-size: $font-3;
+          }
+      
+          span {
+            color: $orange;
+          }
+        }
+      }
+    }
+  }
+  
