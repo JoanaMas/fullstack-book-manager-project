@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import { useRef, useState } from "react";
 // Components
 import ActionButton from "../../components/actionButton/ActionButton";
-import SingleBookPageCard from "../../components/singleBook/singleBookPageCard";
+import SingleBookPageCard from "../../components/singleBookPageCard/singleBookPageCard";
 import BookNote from "../../components/bookNote/BookNote";
 // Redux
 import { useDispatch, useSelector } from "react-redux";

@@ -4,15 +4,24 @@
 
 .note {
     width: 45%;
-    height: 400px;
+    max-height: 400px;
     overflow: scroll;
     border: 10px solid $orange;
     border-radius: 20px;
     padding: $p-5;
-    font-size: $font-4;
-    justify-content: space-between;
+    justify-content: space-around;
     gap: $g-3;
     display: flex;
+
+    @include smallScreen {
+        width: 100%;
+        font-size: $font-2;
+    }
+
+    @include largeScreen {
+        width: 45%;;
+        font-size: $font-4;
+    }
 
     .text {
         width: 100%;
@@ -25,15 +34,21 @@
     }
     
     .actionIcons {
-        width: 40%;
+        width: 30%;
         height: 20px;
         display: flex;
         gap: $g-1;
 
                         
         * {
-            font-size: 30pt;
-            flex-basis: auto;
+
+            @include smallScreen {
+                font-size: 15pt;
+            }
+            
+            @include largeScreen  {
+                font-size: 20pt;
+            }
         }
     }
 }

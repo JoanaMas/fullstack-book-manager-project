@@ -11,13 +11,19 @@
     color: $dark-green;
 
     h1 {
-        font-size: 50pt;
         padding: $p-5 $p-8;
+
+        @include smallScreen {
+            font-size: 30pt;
+        }
+
+        @include largeScreen {
+            font-size: 50pt;
+        }
     }
 
 
     .notes {
-        width: 90%;
         max-height: 1200px;
         background-color: white;
         border-radius: 20px;
@@ -25,6 +31,15 @@
         flex-direction: column;
         justify-content: space-between;
         padding: $p-6;
+
+        @include smallScreen {
+            width: 80%;
+        }
+
+        @include mediumScreen {
+            width: 90%;
+        }
+    
 
 
         .displayNotes {
@@ -45,7 +60,16 @@
             display: flex;
             justify-content: flex-end;
             align-items: flex-end;
-            gap: $g-4;
+
+            @include smallScreen {
+                flex-direction: column;
+                gap: $g-1;
+            }
+
+            @include largeScreen {
+                flex-direction: row;
+                gap: $g-4;
+            }
 
             textarea {
                 width: 100%;
@@ -61,8 +85,3 @@
 }
 
 
-
-.uploadInput {
-    width: 100%;
-    height: 100%;
-}

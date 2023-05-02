@@ -63,11 +63,11 @@
   }
 
   .bookInfo {
+    max-height: 300px;
     display: flex;
     flex-direction: column;
     flex: 1;
     justify-content: flex-end;
-    max-height: 400px;
     
 
     h3,
