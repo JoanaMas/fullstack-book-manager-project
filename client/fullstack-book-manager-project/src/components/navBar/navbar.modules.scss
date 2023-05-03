@@ -16,10 +16,20 @@
 .links {
     display: flex;
     gap: $g-2;
+
+    @include extraSmallScreen {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    @include mediumScreen {
+        width: auto;
+        justify-content: flex-start;
+    }
 }
 
+
 .icons {
-    border-radius: 50%;
     padding: 5px;
     display: flex;
     gap: $g-2;
