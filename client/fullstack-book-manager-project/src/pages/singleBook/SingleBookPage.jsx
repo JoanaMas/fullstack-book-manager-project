@@ -110,8 +110,7 @@ const SingleBookPage = () => {
   };
 
   return (
-    <div className="grid-center">
-
+    <div className="singleBookPageContainer">
 
       <SingleBookPageCard 
       cover={book?.cover}
@@ -124,7 +123,7 @@ const SingleBookPage = () => {
       />
 
       {/* NOTES SECTION */}
-      <div className="notesContainer grid-center">
+      <div className="notesContainer">
         <div className="notes">
           <h1>Book notes</h1>
 

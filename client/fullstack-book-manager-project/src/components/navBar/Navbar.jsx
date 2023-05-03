@@ -1,5 +1,6 @@
 import React from "react";
 import "./navbar.modules.scss";
+import "../../style/_style.scss";
 import Logo from "../logo/Logo";
 import routes from "../../routes/routes";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
@@ -37,12 +38,17 @@ const Navbar = () => {
             <Link
               onClick={user ?? dispatch(setCurrentUser(null))}
               to={routes.loginPage}
-              style={{ textDecoration: "none", color: "black" }}
+              
+              style={{ 
+                textDecoration: "none", 
+                color: "black",
+                paddingLeft: user ? "0" : "20px" 
+              }}
             >
               {user ? "LOG OUT" : "LOG IN"}
             </Link>
           </div>
-          <div className="signUp">
+          <div className={user ? "d-none" : "signUp"}>
             <Link
               to={routes.registerPage}
               style={{ textDecoration: "none", color: "white" }}

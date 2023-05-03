@@ -13,6 +13,14 @@
       h1 {
         color: $orange;
         padding: $p-1 0 0 $p-4;
+
+        @include extraSmallScreen {
+          font-size: $font-1;
+        }
+
+        @include mediumScreen {
+          font-size: $font-6;
+        }
       }
   
       .closeIcon {
@@ -27,8 +35,17 @@
       right: 40px;
   
       * {
-        width: 140px;
-        height: 80px;
+
+        @include extraSmallScreen {
+          width: 60px;
+          height: 70px;
+          font-size: $font-1;
+        }
+
+        @include mediumScreen {
+          width: 120px;
+          font-size: $font-3;
+        }
       }
     }
   }

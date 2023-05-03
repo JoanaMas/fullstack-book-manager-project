@@ -8,21 +8,45 @@
 
 .emptyLibraryTitle {
   width: 100%;
-  height: 800px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 
+  @include extraSmallScreen {
+    height: 500px;
+  }
+
+  @include mediumScreen {
+    height: 800px;
+  }
+
   h1 {
     width: 100%;
-    font-size: 40pt;
     text-align: center;
+
+    @include extraSmallScreen {
+      font-size: 20pt;
+    }
+
+    @include mediumScreen {
+      font-size: 30pt;
+    }
   }
 
   .booksInProgressBtn * {
-    width: 300px;
-    height: 70px;
+
+    @include extraSmallScreen {
+      width: 150px;
+      height: 50px;
+      font-size: 8pt;
+    }
+
+    @include mediumScreen {
+      width: 300px;
+      height: 70px;
+      font-size: $font-2;
+    }
   }
 }
 
@@ -33,7 +57,7 @@
   flex-wrap: wrap;
   min-height: auto;
 
-  @include smallScreen {
+  @include extraSmallScreen {
     justify-content: center;
   }
 

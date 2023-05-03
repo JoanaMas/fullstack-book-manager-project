@@ -1,16 +1,24 @@
 @import '../../../style/variables';
+@import '../../../style/style';
 
 .leftSide {
-    width: inherit;
+    width: 100%;
     background-image: url("../../../assets/book-illiustration-3.jpg");
     background-position: center;
     background-size: contain;
     background-repeat: no-repeat;
     background-color: $white;
     padding-left: $p-5;
-    display: flex;
     flex-direction: column;
     justify-content: space-around;
+
+    @include extraSmallScreen {
+        display: none;
+    }
+
+    @include mediumScreen {
+        display: flex;
+    }
 
     h1 {
         font-size: 40pt;

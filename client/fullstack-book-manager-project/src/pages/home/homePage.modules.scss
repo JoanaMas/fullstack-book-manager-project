@@ -21,7 +21,7 @@
         margin-top: $m-6;
         gap: $g-4;
     
-        @include smallScreen {
+        @include extraSmallScreen {
             flex-direction: column;
         }
     
@@ -36,12 +36,14 @@
         }
     
         .firstCardTitle {
-            font-size: 40pt;
     
-            @include smallScreen {
-                font-size: 30pt;
+            @include extraSmallScreen {
+                font-size: 25pt;
                 margin-bottom: $m-6;
-                
+            }
+
+            @include largeScreen {
+                font-size: 35pt;
             }
         }
     }
@@ -70,7 +72,7 @@
             border-radius: 50%;
             position: relative;
   
-            @include smallScreen {
+            @include extraSmallScreen {
                 margin-bottom: $m-6;
                 margin-left: $m-5;
             }
@@ -95,12 +97,12 @@
 
                 h1 {
                     width: fit-content;
-                    font-size: $font-7;
+                    font-size: $font-5;
                 }
                 
         
-                @include smallScreen {
-                    right: -60px;
+                @include extraSmallScreen {
+                    right: -30px;
                     width: fit-content;
                 }
 
@@ -115,7 +117,7 @@
                 position: absolute;
                 top: -40px;
         
-                @include smallScreen {
+                @include extraSmallScreen {
                     top: -40px
                 }
 
@@ -129,7 +131,7 @@
                 position: absolute;
                 left: -40px;
         
-                @include smallScreen {
+                @include extraSmallScreen {
                     left: -30px;
                 }
 
@@ -142,8 +144,8 @@
                 position: absolute;
                 bottom: -60px;
         
-                @include smallScreen {
-                    bottom: -50px;
+                @include extraSmallScreen {
+                    bottom: -60px;
                 }
 
                 @include largeScreen {

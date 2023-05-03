@@ -1,4 +1,5 @@
 @import '../../../style/variables';
+@import '../../../style/style';
 
 .rightSide {
     width: inherit;
@@ -6,10 +7,24 @@
     flex-direction: column;
     padding: $p-4;
 
+    @include extraSmallScreen {
+        padding-top: $p-2;
+    }
+
+    @include mediumScreen {
+        padding-top: $p-3;
+    }
 
     h3 {
-        font-size: $font-3;
         color: $orange;
+
+        @include extraSmallScreen {
+            font-size: $font-1;
+        }
+
+        @include mediumScreen {
+            font-size: $font-3;
+        }
     }
 
     .inputFields {

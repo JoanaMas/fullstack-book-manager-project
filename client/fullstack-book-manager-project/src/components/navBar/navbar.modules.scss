@@ -1,4 +1,5 @@
 @import '../../style/variables';
+@import '../../style/style';
 
 .navbar {
     width: 100%;
@@ -41,7 +42,10 @@
 
     .login {
         font-weight: 700;
-        padding-left: $p-2;
+
+        @include mediumScreen {
+            // padding-left: $p-2;
+        }
     }
 
     .signUp {

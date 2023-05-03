@@ -3,7 +3,7 @@
 
 
 .note {
-    width: 45%;
+    width: 100%;
     max-height: 400px;
     overflow: scroll;
     border: 10px solid $orange;
@@ -13,14 +13,13 @@
     gap: $g-3;
     display: flex;
 
-    @include smallScreen {
-        width: 100%;
-        font-size: $font-2;
+    @include extraSmallScreen {
+        font-size: $font-1;
     }
 
     @include largeScreen {
         width: 45%;;
-        font-size: $font-4;
+        font-size: 10pt;
     }
 
     .text {
@@ -42,7 +41,7 @@
                         
         * {
 
-            @include smallScreen {
+            @include extraSmallScreen {
                 font-size: 15pt;
             }
             

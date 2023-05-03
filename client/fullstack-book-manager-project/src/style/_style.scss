@@ -29,6 +29,13 @@ a {
 
 // RESPONSIVE DESIGN
 
+
+@mixin extraSmallScreen {
+    @media (min-width: $xs) {
+        @content;
+    }
+}
+
 @mixin smallScreen {
     @media (min-width: $sm) {
         @content;

@@ -14,7 +14,7 @@
   border: 5px solid $orange;
   border-radius: 50px;
 
-  @include smallScreen {
+  @include extraSmallScreen {
     max-height: 800px;
     overflow: scroll;
   }
@@ -46,7 +46,7 @@
     height: 100%;
     overflow: scroll;
 
-    @include smallScreen {
+    @include extraSmallScreen {
       display: grid;
       place-items: center;
     }
@@ -78,8 +78,8 @@
   h1 {
     color: $dark-green;
 
-    @include smallScreen {
-      font-size: $font-5;
+    @include extraSmallScreen {
+      font-size: $font-4;
     }
 
     @include largeScreen {

@@ -13,7 +13,7 @@
     align-items: center;
     position: relative;
 
-    @include smallScreen {
+    @include extraSmallScreen {
       flex-direction: column;
     }
 
@@ -56,7 +56,7 @@
       height: 100%;
       color: $dark-green;
 
-      @include smallScreen {
+      @include extraSmallScreen {
         flex-direction: column;
       }
 
@@ -66,26 +66,32 @@
 
       h3 {
         margin-bottom: $m-2;
-        font-size: $font-6;
+
+        @include extraSmallScreen {
+          font-size: $font-3;
+        }
+
+        @include largeScreen {
+          font-size: $font-6;
+        }
       }
 
       .stats {
         display: flex;
         padding: $p-2;
         width: fit-content;
+  
 
-        @include smallScreen{
+        @include extraSmallScreen {
           flex-direction: column;
         }
 
         h5 {
-          font-size: $font-5;
-          margin-right: $m-5;
     
-          @include smallScreen {
+          @include extraSmallScreen {
             width: 100%;
-            margin-left: $m-5;
-            font-size: $font-4;
+            margin-left: $m-1;
+            font-size: $font-2;
           }
 
           @include largeScreen {
