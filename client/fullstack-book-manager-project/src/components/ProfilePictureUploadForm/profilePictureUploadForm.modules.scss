@@ -3,7 +3,6 @@
 
 
 .pictureUploadContainer {
-    width: 600px;
     height: 250px;
     padding: $p-2;
     background-color: $orange;
@@ -15,17 +14,30 @@
     padding: $p-3;
     z-index: 3;
     position: absolute;
-    top: 300px;
-    left: 300px;
+
+    @include extraSmallScreen {
+      width: 450px;
+      top: 350px;
+      left: 70px;
+    }
+
+    @include mediumScreen {
+      width: 480px;
+      top: 320px;
+      left: 300px;
+    }
+
+    @include largeScreen {
+      width: 600px;
+      top: 300px;
+      left: 300px;
+    }
+
 
     .closeIcon {
       width: 100%;
       display: flex;
       justify-content: space-between;
-    }
-  
-    input {
-      border: 1px solid $dark-green;
     }
   
     button {

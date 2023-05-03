@@ -1,11 +1,11 @@
 import React from "react";
 import "./inputField.modules.scss";
 
-const InputField = ({ children, type, placeholder, htmlFor, id, inputRef }) => {
+const InputField = (props) => {
   return (
     <div>
-      <label htmlFor={htmlFor}>{children}</label>
-      <input type={type} placeholder={placeholder} id={id} ref={inputRef} />
+      <label htmlFor={props.htmlFor}>{props.children}</label>
+      <input type={props.type} placeholder={props.placeholder} id={props.id} ref={props.inputRef} />
     </div>
   );
 };

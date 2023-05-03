@@ -1,17 +1,17 @@
 import React from 'react';
 import './leftFormSide.modules.scss';
 
-const LeftFormSide = ({ title, question, route, linkText }) => {
+const LeftFormSide = (props) => {
   return (
     <div className="leftSide">
     <h1>
-      {title}<span>.</span>
+      {props.title}<span>.</span>
     </h1>
     <div className="logIn">
       <h2>
-        {question}
+        {props.question}
         <span>
-          <a href={route}> {linkText} </a>
+          <a href={props.route}>&nbsp;{props.linkText} </a>
         </span>
       </h2>
     </div>

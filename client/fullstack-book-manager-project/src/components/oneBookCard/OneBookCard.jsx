@@ -12,19 +12,8 @@ import BookmarkOutlinedIcon from "@mui/icons-material/BookmarkOutlined";
 import { useDispatch } from "react-redux";
 import { setBooks } from "../../redux/books";
 
-const OneBookCard = ({
-  key,
-  cover,
-  title,
-  year,
-  author,
-  pages,
-  isFinished,
-  bookId,
-  userId,
-  currentUserId,
-  children,
-}) => {
+
+const OneBookCard = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -68,7 +57,7 @@ const OneBookCard = ({
     };
 
       // SENDING DATA TO BACK-END
-      axios.post("http://localhost:4005/updateBookFinished/" + currentUserId, bookIsFinished)
+      axios.post("http://localhost:4005/updateBookFinished/" + props.currentUserId, bookIsFinished)
       .then(res => {
         console.log(res.data);
         dispatch(setBooks(res.data.booksInProgress));
@@ -79,43 +68,43 @@ const OneBookCard = ({
   };
 
   return (
-    <div key={key} className="oneBook">
+    <div key={props.key} className="oneBook">
       <div className="cover">
-        <img src={cover} alt="cover" onClick={() => singleBookPage(bookId, userId)} />
+        <img src={props.cover} alt="cover" onClick={() => singleBookPage(props.bookId, props.userId)} />
 
         <div
-          className={isFinished === false ? "deleteButton" : "d-none"}
-          onClick={() => deleteBookInProgress(bookId, userId)}
+          className={props.isFinished === false ? "deleteButton" : "d-none"}
+          onClick={() => deleteBookInProgress(props.bookId, props.userId)}
         >
           <DeleteOutlineOutlinedIcon />
         </div>
       </div>
       <div className="bookInfo">
         <h3>
-          {title}, {year}
+          {props.title}, {props.year}
         </h3>
         <hr />
 
         <div className="author">
-          <h4>{author}</h4>
+          <h4>{props.author}</h4>
         </div>
         <div className="pages">
           <span>
             <AutoStoriesOutlinedIcon />
           </span>
-          <p>{pages}</p>
+          <p>{props.pages}</p>
         </div>
-        <div className={isFinished === false ? "finishedBook" : "d-none"}>
-          {stateBookId === bookId ? (
-            <BookmarkOutlinedIcon onClick={() => bookFinished(bookId)} />
+        <div className={props.isFinished === false ? "finishedBook" : "d-none"}>
+          {stateBookId === props.bookId ? (
+            <BookmarkOutlinedIcon onClick={() => bookFinished(props.bookId)} />
           ) : (
             <BookmarkBorderOutlinedIcon
-              onClick={() => bookFinished(bookId)}
+              onClick={() => bookFinished(props.bookId)}
             ></BookmarkBorderOutlinedIcon>
           )}
           <label htmlFor="finished">Finished!</label>
         </div>
-        {children}
+        {props.children}
       </div>
     </div>
   );

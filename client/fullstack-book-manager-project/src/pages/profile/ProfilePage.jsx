@@ -10,7 +10,7 @@ import Header from "../../components/header/Header";
 import ActionButton from "../../components/actionButton/ActionButton";
 import OneBookCard from "../../components/oneBookCard/OneBookCard";
 import CreateBookForm from "../../components/createBookForm/CreateBookForm";
-import ProfilePictureUploadForm from "../../components/ProfilePictureUploadForm/ProfilePictureUploadForm";
+import ProfilePictureUploadForm from "../../components/profilePictureUploadForm/ProfilePictureUploadForm";
 import UserProfileBar from "../../components/userProfileBar/UserProfileBar";
 // Icons
 import ModeEditOutlinedIcon from "@mui/icons-material/ModeEditOutlined";
