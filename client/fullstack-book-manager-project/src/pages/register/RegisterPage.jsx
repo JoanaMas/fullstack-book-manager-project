@@ -73,13 +73,16 @@ const RegisterPage = () => {
     }
 
     // SENDING DATA TO BACK-END
+
       axios.post("http://localhost:4005/register", newUserData)
       .then(res => {
-          if(res.data.error) {
-            dispatch(changeErrorMessage(res.data.error))
-          } else {
+          if(res.data.error) return;
+          else {
             navigate(routes.loginPage);
           }
+      })
+      .catch(error => {
+        dispatch(changeErrorMessage(error.response.data.error))
       })
 
   };

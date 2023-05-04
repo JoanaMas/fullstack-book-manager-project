@@ -68,7 +68,7 @@ const OneBookCard = (props) => {
   };
 
   return (
-    <div key={props.key} className="oneBook">
+    <div key={props.bookId} className="oneBook">
       <div className="cover">
         <img src={props.cover} alt="cover" onClick={() => singleBookPage(props.bookId, props.userId)} />
 

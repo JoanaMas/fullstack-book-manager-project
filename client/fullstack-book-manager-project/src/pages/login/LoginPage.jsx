@@ -39,14 +39,14 @@ const LoginPage = () => {
       axios
       .post("http://localhost:4005/login", existingUser)
       .then(res => {
-        console.log(res.data)
-        if(res.data.error) {
-          dispatch(changeErrorMessage(res.data.error))
-        } else {
+        if(res.data.error) return;
+        else {
           dispatch(setCurrentUser(res.data.user))
           navigate('/profile/'+res.data.user._id)
         }
-        
+      })
+      .catch(error => {
+        dispatch(changeErrorMessage(error.response.data.error))
       })
   }
 

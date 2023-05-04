@@ -13,7 +13,6 @@ import CreateBookForm from "../../components/createBookForm/CreateBookForm";
 import ProfilePictureUploadForm from "../../components/profilePictureUploadForm/ProfilePictureUploadForm";
 import UserProfileBar from "../../components/userProfileBar/UserProfileBar";
 // Icons
-import ModeEditOutlinedIcon from "@mui/icons-material/ModeEditOutlined";
 import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
 import ArrowCircleRightOutlinedIcon from "@mui/icons-material/ArrowCircleRightOutlined";
 // Redux
@@ -138,7 +137,7 @@ const ProfilePage = () => {
           {/* ONE BOOK */}
           {booksInProgress.map((book, i) => (
             <OneBookCard
-              key={i}
+              key={book._id}
               cover={book.cover}
               title={book.title}
               year={book.year}

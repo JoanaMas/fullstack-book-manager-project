@@ -2,12 +2,10 @@ import React from "react";
 import "./homePage.modules.scss";
 // Icons
 import HomePageCard from "../../components/homePageCard/HomePageCard";
-import TravelExploreIcon from "@mui/icons-material/TravelExplore";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import PhoneAndroidIcon from "@mui/icons-material/PhoneAndroid";
 import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
 // Hooks
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 // Routes
 import routes from "../../routes/routes";
