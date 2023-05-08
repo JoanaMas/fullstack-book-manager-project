@@ -2,13 +2,13 @@
 
 ## About The Project
 
-This is my first own created book manager project from scratch, and my inspiration source: [goodreads](https://www.goodreads.com/?ref=nav_hom).
+This is my first created project from scratch, and my inspiration source for this application was [goodreads](https://www.goodreads.com/?ref=nav_hom).
 
-Project purpose was to combine all the front-end & back-end knowledge aquired in 6 months lasting JavaScript/Typescript fullstack course at codeacademy.lt. 
+Project purpose was to combine all the front-end & back-end knowledge acquired in 6 months lasting JavaScript/Typescript fullstack course at codeacademy.lt. 
 
 Project was created using JavaScript (React framework). 
 
-This project it is really important work of mine, as it gave me opportunity to gain a better understanding on how front-end connects to back-end & database. Working on this project solely and taking full ownership of an outcome made me solve multiple problems, that I never faced before.
+This project it is really important work of mine, as it gave me opportunity to gain a better understanding on how front-end connects to back-end & database. Creating this particular application made me solve multiple problems, that I never faced before.
 
 During this project, I gained deeper knowledge of:
 
@@ -74,7 +74,7 @@ Couple problems I was working on:
 * Cors for security
 * MongoDB (mongoose) database
 
-*Note: Tools and libraries used in this project are not complete list of total knowledge aquired during my studies & individual practise.*
+*Note: Tools and libraries used in this project are not complete list of total knowledge acquired during my studies & individual practise.*
 
 <br>
 
@@ -112,6 +112,13 @@ Run application:
 
 ```
 npm run dev
+```
+
+4. To test application, you can either register a new user and log in with your created credentials, or use my test account with credentials:<br><br>
+
+```
+email: joana@gmail.com  
+password: password
 ```
 
 <br>
