@@ -12,18 +12,18 @@ This project it is really important work of mine, as it gave me opportunity to g
 
 During this project, I gained deeper knowledge of:
 
-* Make request from front and send them to back
-* Make request from database (mongoDB) and send response to front
-* Implement validations from back using middleware function & send response HTTP statuses & validation messages to front
-* Get data by conditions from database
-* Use redux state management system
-* React components decomposition & more
+* Make request from front and send them to back.
+* Make request from database (mongoDB) and send response to front.
+* Implement validations from back using middleware function & send response HTTP statuses & validation messages to front.
+* Get data by conditions from database.
+* Use redux state management system.
+* React components decomposition & more.
 
-Couple problem I was working on:
+Couple problems I was working on:
 
-* I have learned that current user should be always present in order to be logged in user account. If application is developed by adding new pages & funcionalities, current user state was esential for it to connecting with further actions.
-* It also made me strategise with the sequence of steps that should be taken to expand application by adding more actions to it.
-* The toughest part was to create realationships between data & find ways to connect it when needed.
+* I have learned that current user should be always present in order to be logged in user account. If application is developed by adding new pages & funcionalities, current user state was esential for to connect with further application actions.
+* It also made me strategize with the sequence of steps that should be taken to expand application by adding more actions to it.
+* The toughest part was to create relationships between data & find ways to connect it.
 
 <br>
 
@@ -42,13 +42,17 @@ Couple problem I was working on:
 * Counter for total pages read
 * Responsive design
 
-*Note: Project video added to see functionality of a project.*
+*Note: Project video & gif added to see functionality of a project.*
 
-[Project Video](./client/fullstack-book-manager-project/public/www_screencapture_com_2023-5-8_12_08.mp4)
 <br>
 
+## Application example
 
+[Project Video](./client/fullstack-book-manager-project/public/www_screencapture_com_2023-5-8_12_08.mp4)
 
+![](./client/fullstack-book-manager-project/public/book-manager-app.gif)
+
+<br>
 
 ## Techonologies Used 
 
