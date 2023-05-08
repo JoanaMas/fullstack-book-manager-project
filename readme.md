@@ -104,10 +104,10 @@ Install libraries:
 npm install
 ```
 
-Run server:
+Run application:
 
 ```
-npm run server
+npm run dev
 ```
 
 <br>
