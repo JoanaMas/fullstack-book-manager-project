@@ -1,12 +1,12 @@
-import React from "react";
-import './homePageCard.modules.scss'
+import React from 'react';
+import './homePageCard.modules.scss';
 
-const HomePageCard = ({children}) => {
+function HomePageCard({ children }) {
   return (
-    <div className={`card`}>
+    <div className="card">
       {children}
     </div>
   );
-};
+}
 
 export default HomePageCard;

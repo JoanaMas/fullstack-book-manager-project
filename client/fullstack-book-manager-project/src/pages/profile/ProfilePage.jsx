@@ -1,42 +1,39 @@
-import React from "react";
-import "./profilePage.modules.scss";
-import axios from "axios";
-import { useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-import routes from "../../routes/routes";
+import React, { useEffect } from 'react';
+import './profilePage.modules.scss';
+import axios from 'axios';
+import { useParams, useNavigate } from 'react-router-dom';
+import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
+import ArrowCircleRightOutlinedIcon from '@mui/icons-material/ArrowCircleRightOutlined';
+import { useSelector, useDispatch } from 'react-redux';
+import routes from '../../routes/routes';
 // Components
-import Header from "../../components/header/Header";
-import ActionButton from "../../components/actionButton/ActionButton";
-import OneBookCard from "../../components/oneBookCard/OneBookCard";
-import CreateBookForm from "../../components/createBookForm/CreateBookForm";
-import ProfilePictureUploadForm from "../../components/profilePictureUploadForm/ProfilePictureUploadForm";
-import UserProfileBar from "../../components/userProfileBar/UserProfileBar";
+import Header from '../../components/header/Header';
+import ActionButton from '../../components/actionButton/ActionButton';
+import OneBookCard from '../../components/oneBookCard/OneBookCard';
+import CreateBookForm from '../../components/createBookForm/CreateBookForm';
+import ProfilePictureUploadForm from '../../components/profilePictureUploadForm/ProfilePictureUploadForm';
+import UserProfileBar from '../../components/userProfileBar/UserProfileBar';
 // Icons
-import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
-import ArrowCircleRightOutlinedIcon from "@mui/icons-material/ArrowCircleRightOutlined";
 // Redux
-import { useSelector, useDispatch } from "react-redux";
-import { setCurrentUser } from "../../redux/user";
-import { setBooks, setFinishedBooks } from "../../redux/books";
+import { setCurrentUser } from '../../redux/user';
+import { setBooks, setFinishedBooks } from '../../redux/books';
 import {
   setOpenCreateBookForm,
   setOpenPictureUpload,
-} from "../../redux/onClickActions";
+} from '../../redux/onClickActions';
 
-const ProfilePage = () => {
+function ProfilePage() {
   const currentUser = useSelector((store) => store.users.value.currentUser);
   const booksInProgress = useSelector((store) => store.books.value.books);
   const handleOpenCreateBookForm = useSelector(
-    (store) => store.onClickActions.value.openCreateBookForm
+    (store) => store.onClickActions.value.openCreateBookForm,
   );
   const handleOpenPictureUploadForm = useSelector(
-    (store) => store.onClickActions.value.openPictureUpload
+    (store) => store.onClickActions.value.openPictureUpload,
   );
   const completedBooks = useSelector(
-    (store) => store.books.value.finishedBooks
+    (store) => store.books.value.finishedBooks,
   );
-
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -44,18 +41,13 @@ const ProfilePage = () => {
   const { id } = useParams();
 
   // COUNT TOTAL PAGES READ
-  const pagesReadArray = completedBooks.map(({ pages }) => {
-    return pages;
-  });
+  const pagesReadArray = completedBooks.map(({ pages }) => pages);
 
-  const totalOfPagesRead = pagesReadArray.reduce((sum, acc) => {
-    return sum + acc;
-  }, 0);
+  const totalOfPagesRead = pagesReadArray.reduce((sum, acc) => sum + acc, 0);
 
   // DISPLAYED CURRENT USER IN PROFILE
   useEffect(() => {
-    axios.get("http://localhost:4005/userProfile/" + id).then((res) => {
-      console.log(res.data);
+    axios.get(`http://localhost:4005/userProfile/${id}`).then((res) => {
       if (res.data.registeredUser) {
         dispatch(setCurrentUser(res.data.registeredUser));
       } else {
@@ -73,36 +65,47 @@ const ProfilePage = () => {
     dispatch(setOpenCreateBookForm(!handleOpenCreateBookForm));
   };
 
+  // KEYBOARD NAVIGATION
+  const handleKeyDown = (event) => {
+    if (event.key === 'ArrowDown') {
+      dispatch(setOpenCreateBookForm(!handleOpenCreateBookForm));
+    }
+  };
+
+  const navigateToLibraryOnKeyDown = (event) => {
+    if (event.key === 'ArrowDown') {
+      navigate(`/book-library/${id}`);
+    }
+  };
+
   // GET BOOKS BY USER ID THAT ARE IN PROGRESS OF READING
   useEffect(() => {
-    axios.get("http://localhost:4005/getBooksInProgress/" + id)
-    .then(res => {
-      dispatch(setBooks(res.data.booksInProgress));
-    })
+    axios.get(`http://localhost:4005/getBooksInProgress/${id}`)
+      .then((res) => {
+        dispatch(setBooks(res.data.booksInProgress));
+      });
   }, []);
 
   // GET FINISHED BOOKS - data fetched to see total pages read
   useEffect(() => {
-    axios.get("http://localhost:4005/getFinishedBooks/" + id)
-    .then(res => {
-      dispatch(setFinishedBooks(res.data.finishedBooks));
-    })
+    axios.get(`http://localhost:4005/getFinishedBooks/${id}`)
+      .then((res) => {
+        dispatch(setFinishedBooks(res.data.finishedBooks));
+      });
   }, []);
-
-
 
   return (
     // USER BOARD
     <div className="profileContainer">
 
-    {/* USER PROFILE BAR WITH PROFILE PICTURE */}
-    <UserProfileBar
-      profilePicture={currentUser?.profilePicture}
-      handleUploadPhotoOpen={handleUploadPhotoOpen}
-      email={currentUser?.email}
-      completedBooks={completedBooks.length}
-      totalOfPagesRead={totalOfPagesRead}
-    />
+      {/* USER PROFILE BAR WITH PROFILE PICTURE */}
+      <UserProfileBar
+        profilePicture={currentUser?.profilePicture}
+        handleUploadPhotoOpen={handleUploadPhotoOpen}
+        email={currentUser?.email}
+        completedBooks={completedBooks.length}
+        totalOfPagesRead={totalOfPagesRead}
+      />
 
       {/* PROFILE PICTURE UPLOAD */}
       <ProfilePictureUploadForm
@@ -118,7 +121,7 @@ const ProfilePage = () => {
       </Header>
 
       {/* CREATE BOOK FORM */}
-      <div className={handleOpenCreateBookForm ? "d-flex" : "d-none"}>
+      <div className={handleOpenCreateBookForm ? 'd-flex' : 'd-none'}>
         <CreateBookForm
           currentUserId={id}
           handleCreateBookFormOpen={handleCreateBookFormOpen}
@@ -129,13 +132,18 @@ const ProfilePage = () => {
       <div className="singleBookContainer">
         <div className="addBook">
           <h3>Currently reading...</h3>
-          <div className="addIcon" onClick={handleCreateBookFormOpen}>
+          <button
+            type="submit"
+            className="addIcon"
+            onClick={handleCreateBookFormOpen}
+            onKeyDown={(event) => handleKeyDown(event)}
+          >
             <AddCircleOutlineOutlinedIcon fontSize="large" />
-          </div>
+          </button>
         </div>
         <div className="booksInProgress">
           {/* ONE BOOK */}
-          {booksInProgress.map((book, i) => (
+          {booksInProgress.map((book) => (
             <OneBookCard
               key={book._id}
               cover={book.cover}
@@ -155,42 +163,17 @@ const ProfilePage = () => {
       {/* LINK TO FINISHED BOOKS */}
       <div className="bookLibraryContainer">
         <h1>Explore books you have already finished!</h1>
-        <div
+        <button
+          type="submit"
           className="arrowRight"
-          onClick={() => navigate("/book-library/" + id)}
+          onClick={() => navigate(`/book-library/${id}`)}
+          onKeyDown={(event) => navigateToLibraryOnKeyDown(event)}
         >
           <ArrowCircleRightOutlinedIcon />
-        </div>
+        </button>
       </div>
     </div>
   );
-};
+}
 
 export default ProfilePage;
-
-// FAKE DATA
-const user = {
-  id: "myId",
-  name: "Joana",
-  email: "joana@gmail.com",
-  password: "Joana",
-  passwordRepeat: "Joana",
-  image:
-    "https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?s=612x612&w=0&k=20&c=yBeyba0hUkh14_jgv1OKqIH0CCSWU_4ckRkAoy2p73o=",
-};
-
-const finishedBooks = [
-  { title: "Harry Potter", pages: 450 },
-  { title: "Lord Of The Rings", pages: 450 },
-  { title: "Lord Of The Rings", pages: 650 },
-];
-
-// const booksInProgress = {
-//   id: "bookdId",
-//   author: "J.R.R. Tolkien",
-//   title: "The Lord of the Rings",
-//   pages: "1216",
-//   year: "1954",
-//   coverImage:
-//     "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1566425108i/33.jpg",
-// };

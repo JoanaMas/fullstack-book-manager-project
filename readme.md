@@ -8,26 +8,26 @@ Project purpose was to combine all the front-end & back-end knowledge acquired i
 
 Project was created using JavaScript (React framework). 
 
-This project it is really important work of mine, as it gave me opportunity to gain a better understanding on how front-end connects to back-end & database. Creating this particular application made me solve multiple problems, that I never faced before.
+This project is really important work of mine, as it gave me an opportunity to gain a better understanding on how the front-end connects to the back-end & database. Creating this particular application made me solve multiple problems that I never faced before.
 
 During this project, I gained deeper knowledge of:
 
-* Make request from front and send them to back.
-* Make request from database (mongoDB) and send response to front.
+* Make requests from front-end and send them to back-end.
+* Make requests from database (mongoDB) and send response to front-end.
 * Implement validations from back using middleware function & send response HTTP statuses & validation messages to front.
-* Get data by conditions from database.
+* Get data by conditions from the database.
 * Use redux state management system.
 * React components decomposition & more.
 
 Couple problems I was working on:
 
-* I have learned that current user should be always present in order to be logged in user account. If application is developed by adding new pages & funcionalities, current user state was esential for to connect with further application actions.
+* I have learned that current user should be always present in order to be logged in user account. If application is developed by adding new pages & functionalities, current user state was essential for to connect with further application actions.
 * It also made me strategize with the sequence of steps that should be taken to expand application by adding more actions to it.
 * The toughest part was to create relationships between data & find ways to connect it.
 
 <br>
 
-## Project Funcionality
+## Project Functionalities
 
 * User registration
 * User log in / log out
@@ -36,7 +36,7 @@ Couple problems I was working on:
 * Delete book from your currently reading book list
 * Mark book as finished to read
 * Finished books are stored to library
-* Single book page with posibility to write notes from the book
+* Single book page with possibility to write notes from the book
 * Write, delete & update book note
 * Counter for books finished that are stored in library
 * Counter for total pages read
