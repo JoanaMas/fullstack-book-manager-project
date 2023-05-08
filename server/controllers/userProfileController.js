@@ -11,7 +11,7 @@ module.exports = {
         })
     
       
-        res.send({registeredUser})
+        res.send({ registeredUser })
     },
 
     uploadProfileImage: async (req, res) => {
