@@ -8,9 +8,7 @@ Project purpose was to combine all the front-end & back-end knowledge acquired i
 
 Project was created using JavaScript (React framework). 
 
-This project is really important work of mine, as it gave me an opportunity to gain a better understanding on how the front-end connects to the back-end & database. Creating this particular application made me solve multiple problems that I never faced before.
-
-During this project, I gained deeper knowledge of:
+This project is really important work of mine, as it gave me an opportunity to gain a better understanding on how the front-end connects to the back-end & database. Creating this particular application made me solve multiple problems that I never faced before & gain deeper knowledge of how to:
 
 * Make requests from front-end and send them to back-end.
 * Make requests from database (mongoDB) and send response to front-end.
@@ -18,12 +16,6 @@ During this project, I gained deeper knowledge of:
 * Get data by conditions from the database.
 * Use redux state management system.
 * React components decomposition & more.
-
-Couple problems I was working on:
-
-* I have learned that current user should be always present in order to be logged in user account. If application is developed by adding new pages & functionalities, current user state was essential for to connect with further application actions.
-* It also made me strategize with the sequence of steps that should be taken to expand application by adding more actions to it.
-* The toughest part was to create relationships between data & find ways to connect it.
 
 <br>
 
